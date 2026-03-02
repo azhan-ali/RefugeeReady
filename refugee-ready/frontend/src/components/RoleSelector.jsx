@@ -108,7 +108,7 @@ export default function RoleSelector({ onSelectRole, onBack }) {
                         >
                             {/* Internal local image for the card */}
                             <div
-                                className="absolute inset-0 z-0 transition-opacity duration-700 opacity-40 group-hover:opacity-100 mix-blend-overlay grayscale group-hover:grayscale-0"
+                                className="absolute inset-0 z-0 transition-all duration-700 opacity-50 md:opacity-40 group-hover:opacity-100 md:grayscale group-hover:grayscale-0"
                                 style={{
                                     backgroundImage: `url(${role.image})`,
                                     backgroundSize: 'cover',
