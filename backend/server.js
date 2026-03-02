@@ -6,7 +6,10 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: process.env.FRONTEND_URL || '*',
+    origin: [
+        'http://localhost:5173',
+        process.env.FRONTEND_URL
+    ].filter(Boolean)
 }));
 app.use(express.json());
 

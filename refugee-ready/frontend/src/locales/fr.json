@@ -1,0 +1,82 @@
+{
+    "app": {
+        "name": "RefugeeReady",
+        "loading": "Chargement...",
+        "navigate": "Naviguer →",
+        "callNow": "Appelez maintenant",
+        "noResults": "Aucun résultat trouvé",
+        "justArrivedToday": "Je viens d'arriver aujourd'hui"
+    },
+    "languagePicker": {
+        "title": "Bienvenue / Welcome",
+        "subtitle": "Sélectionnez votre langue"
+    },
+    "roleSelector": {
+        "title": "Qui êtes-vous ?",
+        "subtitle": "Sélectionnez l'option qui vous décrit le mieux.",
+        "roles": {
+            "refugee": "Je viens d'arriver. J'ai besoin d'aide.",
+            "host": "Hébergement / Hôte",
+            "restaurant": "Restaurant / Boulangerie",
+            "doctor": "Médecin / Bénévole"
+        }
+    },
+    "roles": {
+        "refugee": "Réfugié / Demandeur d'asile",
+        "host": "Hébergement / Hôte",
+        "restaurant": "Restaurant / Boulangerie",
+        "doctor": "Médecin / Bénévole"
+    },
+    "survival": {
+        "title": "Guide de survie de 72 heures",
+        "completed": "{{count}} sur {{total}} étapes terminées",
+        "day1": "Jour 1 — Survivre",
+        "day2": "Jour 2 — S'inscrire",
+        "week1": "Semaine 1 — Se stabiliser",
+        "items": {
+            "wifi": {
+                "text": "Trouver du WiFi gratuit — appelez votre famille",
+                "action": "→ Afficher les points WiFi"
+            },
+            "shelter": {
+                "text": "Trouver un abri d'urgence ce soir",
+                "action": "→ Afficher les lits disponibles"
+            },
+            "food": {
+                "text": "Trouver de la nourriture à proximité",
+                "action": "→ Afficher la nourriture gratuite"
+            },
+            "medical": {
+                "text": "Êtes-vous blessé ? Obtenez de l'aide",
+                "action": "→ Afficher les médecins"
+            },
+            "bamf": {
+                "text": "Aller au bureau d'inscription du BAMF",
+                "action": "→ Ouvrir la carte"
+            },
+            "legal": {
+                "text": "Obtenir une aide juridique gratuite",
+                "action": ""
+            }
+        }
+    },
+    "features": {
+        "docVault": {
+            "title": "Comprendre votre document",
+            "desc": "Prenez une photo de votre lettre officielle"
+        },
+        "medTrans": {
+            "title": "Traduisez votre ordonnance",
+            "desc": ""
+        },
+        "doctor": {
+            "title": "Trouvez un médecin qui parle votre langue"
+        },
+        "beds": {
+            "title": "Lits disponibles ce soir"
+        },
+        "food": {
+            "title": "Nourriture gratuite à proximité"
+        }
+    }
+}

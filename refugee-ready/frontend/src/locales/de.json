@@ -1,0 +1,82 @@
+{
+    "app": {
+        "name": "RefugeeReady",
+        "loading": "Wird geladen...",
+        "navigate": "Navigieren →",
+        "callNow": "Jetzt anrufen",
+        "noResults": "Keine Ergebnisse",
+        "justArrivedToday": "Ich bin erst heute angekommen"
+    },
+    "languagePicker": {
+        "title": "Willkommen / Welcome",
+        "subtitle": "Wählen Sie Ihre Sprache"
+    },
+    "roleSelector": {
+        "title": "Wer sind Sie?",
+        "subtitle": "Wählen Sie die Option, die Sie am besten beschreibt.",
+        "roles": {
+            "refugee": "Ich bin gerade angekommen. Ich brauche Hilfe.",
+            "host": "Unterkunft / Gastgeber",
+            "restaurant": "Restaurant / Bäckerei",
+            "doctor": "Arzt / Freiwilliger"
+        }
+    },
+    "roles": {
+        "refugee": "Flüchtling / Asylbewerber",
+        "host": "Unterkunft / Gastgeber",
+        "restaurant": "Restaurant / Bäckerei",
+        "doctor": "Arzt / Freiwilliger"
+    },
+    "survival": {
+        "title": "72-Stunden-Überlebensführer",
+        "completed": "{{count}} von {{total}} Schritten abgeschlossen",
+        "day1": "Tag 1 — Überleben",
+        "day2": "Tag 2 — Registrieren",
+        "week1": "Woche 1 — Stabilisieren",
+        "items": {
+            "wifi": {
+                "text": "Kostenloses WLAN finden — Familie anrufen",
+                "action": "→ WLAN-Hotspots anzeigen"
+            },
+            "shelter": {
+                "text": "Notschlafstelle für heute Nacht finden",
+                "action": "→ Verfügbare Betten anzeigen"
+            },
+            "food": {
+                "text": "Essen in der Nähe finden",
+                "action": "→ Kostenloses Essen anzeigen"
+            },
+            "medical": {
+                "text": "Sind Sie verletzt? Holen Sie sich Hilfe",
+                "action": "→ Ärzte anzeigen"
+            },
+            "bamf": {
+                "text": "Zum BAMF-Registrierungsbüro gehen",
+                "action": "→ Karte öffnen"
+            },
+            "legal": {
+                "text": "Kostenlose Rechtshilfe erhalten",
+                "action": ""
+            }
+        }
+    },
+    "features": {
+        "docVault": {
+            "title": "Ihr Dokument verstehen",
+            "desc": "Machen Sie ein Foto Ihres offiziellen Schreibens"
+        },
+        "medTrans": {
+            "title": "Übersetzen Sie Ihr Rezept",
+            "desc": ""
+        },
+        "doctor": {
+            "title": "Finden Sie einen Arzt, der Ihre Sprache spricht"
+        },
+        "beds": {
+            "title": "Verfügbare Betten heute Nacht"
+        },
+        "food": {
+            "title": "Kostenloses Essen in der Nähe"
+        }
+    }
+}

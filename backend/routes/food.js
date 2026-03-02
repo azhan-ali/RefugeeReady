@@ -65,4 +65,22 @@ router.patch('/:id/claim', async (req, res) => {
     }
 });
 
+// @route DELETE /api/food/:id
+// @desc  Delete a food listing (mark as gone)
+router.delete('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { error } = await supabase
+            .from('food')
+            .delete()
+            .eq('id', id);
+
+        if (error) throw error;
+        res.json({ success: true, message: 'Deleted successfully' });
+    } catch (error) {
+        console.error('Food DELETE error:', error);
+        res.status(500).json({ success: false, error: 'Failed to delete food listing' });
+    }
+});
+
 module.exports = router;

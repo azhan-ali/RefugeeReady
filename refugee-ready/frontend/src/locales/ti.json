@@ -1,0 +1,82 @@
+{
+    "app": {
+        "name": "RefugeeReady",
+        "loading": "ይጽዕን ኣሎ...",
+        "navigate": "ኣንፈት →",
+        "callNow": "ሕጂ ደውሉ",
+        "noResults": "ዝኾነ ውጽኢት ኣይተረኽበን",
+        "justArrivedToday": "ሎሚ እየ መጺአ"
+    },
+    "languagePicker": {
+        "title": "እንቋዕ ብድሓን መጹ / Welcome",
+        "subtitle": "ቋንቋኹም ምረጹ"
+    },
+    "roleSelector": {
+        "title": "መን ኢኹም?",
+        "subtitle": "ንዓኹም ዝበጽሕ ምርጫ ምረጹ።",
+        "roles": {
+            "refugee": "ሕጂ እየ መጺአ። ሓገዝ የድልየኒ ኣሎ።",
+            "host": "መዕቆቢ / መአንግዲ",
+            "restaurant": "ቤተ-ምግቢ / እንዳ-ባኒ",
+            "doctor": "ሓኪም / ወለንተኛ"
+        }
+    },
+    "roles": {
+        "refugee": "ስደተኛ",
+        "host": "መዕቆቢ / መአንግዲ",
+        "restaurant": "ቤተ-ምግቢ / እንዳ-ባኒ",
+        "doctor": "ሓኪም / ወለንተኛ"
+    },
+    "survival": {
+        "title": "ናይ 72-ሰዓት መምርሒ ህልውና",
+        "completed": "ካብ {{total}} ዛዛሚ {{count}} ተዛዚሙ አሎ",
+        "day1": "መዓልቲ 1 — ህልውናኻ ምርግጋጽ",
+        "day2": "መዓልቲ 2 — ምዝገባ",
+        "week1": "ሰሙን 1 — ምርጋእ",
+        "items": {
+            "wifi": {
+                "text": "ናጻ ዋይ-ፋይ ድለዩ — ንስድራኹም ደውሉሎም",
+                "action": "→ ዋይ-ፋይ ኣርእየኒ"
+            },
+            "shelter": {
+                "text": "ንሎሚ ምሸት ናይ ህጹጽ ጊዜ መዕቆቢ ድለዩ",
+                "action": "→ ዓራውቲ ኣርእየኒ"
+            },
+            "food": {
+                "text": "ኣብ ጥቓኹም መግቢ ድለዩ",
+                "action": "→ ናጻ መግቢ ኣርእየኒ"
+            },
+            "medical": {
+                "text": "ተጎዲእኩም ዲኹም? ሓገዝ ርከቡ",
+                "action": "→ ሓካይም ኣርእየኒ"
+            },
+            "bamf": {
+                "text": "ናብ ቤት ጽሕፈት ምዝገባ BAMF ኪዱ",
+                "action": "→ ካርታ ክፈት"
+            },
+            "legal": {
+                "text": "ናጻ ጠበቓዊ ሓገዝ ርከቡ",
+                "action": ""
+            }
+        }
+    },
+    "features": {
+        "docVault": {
+            "title": "ሰነድኩም ምርዳእ",
+            "desc": "ናይ ወግዓዊ ደብዳቤኹም ስእሊ ኣልዕሉ"
+        },
+        "medTrans": {
+            "title": "ናይ ፈውሲ ትእዛዝኩም ተርጉሙ",
+            "desc": ""
+        },
+        "doctor": {
+            "title": "ቋንቋኹም ዝዛረብ ሓኪም ድለዩ"
+        },
+        "beds": {
+            "title": "ንሎሚ ምሸት ክፍቲ ዓራውቲ"
+        },
+        "food": {
+            "title": "ኣብ ጥቓኹም ናጻ መግቢ"
+        }
+    }
+}

@@ -1,16 +1,24 @@
 {
+    "app": {
+        "name": "RefugeeReady",
+        "loading": "Loading...",
+        "navigate": "Navigate →",
+        "callNow": "Call Now",
+        "noResults": "No results found",
+        "justArrivedToday": "I just arrived today"
+    },
     "languagePicker": {
         "title": "Welcome / Willkommen",
-        "subtitle": "Please select your language to continue."
+        "subtitle": "Select your language"
     },
     "roleSelector": {
-        "title": "How can we help you?",
+        "title": "Who are you?",
         "subtitle": "Select the option that best describes you.",
         "roles": {
             "refugee": "I just arrived. I need help.",
-            "host": "I have beds available tonight.",
-            "restaurant": "I have surplus food to share.",
-            "doctor": "I want to register my profile."
+            "host": "Shelter / Host",
+            "restaurant": "Restaurant / Bakery",
+            "doctor": "Doctor / Volunteer"
         }
     },
     "roles": {
@@ -18,5 +26,57 @@
         "host": "Shelter / Host",
         "restaurant": "Restaurant / Bakery",
         "doctor": "Doctor / Volunteer"
+    },
+    "survival": {
+        "title": "72-Hour Survival Guide",
+        "completed": "{{count}} of {{total}} steps completed",
+        "day1": "Day 1 — Survive",
+        "day2": "Day 2 — Register",
+        "week1": "Week 1 — Stabilize",
+        "items": {
+            "wifi": {
+                "text": "Find free WiFi — call your family",
+                "action": "→ Show me WiFi spots"
+            },
+            "shelter": {
+                "text": "Find emergency shelter tonight",
+                "action": "→ Show me available beds"
+            },
+            "food": {
+                "text": "Find food nearby",
+                "action": "→ Show me free food"
+            },
+            "medical": {
+                "text": "Are you injured? Get help",
+                "action": "→ Show me doctors"
+            },
+            "bamf": {
+                "text": "Go to BAMF registration office",
+                "action": "→ Open Map"
+            },
+            "legal": {
+                "text": "Get free legal help",
+                "action": ""
+            }
+        }
+    },
+    "features": {
+        "docVault": {
+            "title": "Understand Your Document",
+            "desc": "Take a photo of your official letter"
+        },
+        "medTrans": {
+            "title": "Translate Your Prescription",
+            "desc": ""
+        },
+        "doctor": {
+            "title": "Find a doctor who speaks your language"
+        },
+        "beds": {
+            "title": "Available beds tonight"
+        },
+        "food": {
+            "title": "Free food nearby"
+        }
     }
 }

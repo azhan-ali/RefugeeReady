@@ -1,0 +1,82 @@
+{
+    "app": {
+        "name": "RefugeeReady",
+        "loading": "Yükleniyor...",
+        "navigate": "Yol Tarifi →",
+        "callNow": "Şimdi Ara",
+        "noResults": "Sonuç bulunamadı",
+        "justArrivedToday": "Daha bugün geldim"
+    },
+    "languagePicker": {
+        "title": "Hoşgeldiniz / Welcome",
+        "subtitle": "Dilinizi seçin"
+    },
+    "roleSelector": {
+        "title": "Kimsiniz?",
+        "subtitle": "Sizi en iyi tanımlayan seçeneği seçin.",
+        "roles": {
+            "refugee": "Yeni geldim. Yardıma ihtiyacım var.",
+            "host": "Barınak / Ev Sahibi",
+            "restaurant": "Restoran / Fırın",
+            "doctor": "Doktor / Gönüllü"
+        }
+    },
+    "roles": {
+        "refugee": "Mülteci",
+        "host": "Barınak / Ev Sahibi",
+        "restaurant": "Restoran / Fırın",
+        "doctor": "Doktor / Gönüllü"
+    },
+    "survival": {
+        "title": "72 Saatlik Hayatta Kalma Rehberi",
+        "completed": "{{count}} / {{total}} adım tamamlandı",
+        "day1": "1. Gün — Hayatta Kal",
+        "day2": "2. Gün — Kayıt Ol",
+        "week1": "1. Hafta — İstikrar Sağla",
+        "items": {
+            "wifi": {
+                "text": "Ücretsiz WiFi bul — aileni ara",
+                "action": "→ WiFi noktalarını göster"
+            },
+            "shelter": {
+                "text": "Bu gece için acil barınak bul",
+                "action": "→ Boş yatakları göster"
+            },
+            "food": {
+                "text": "Yakında yiyecek bul",
+                "action": "→ Ücretsiz yemeği göster"
+            },
+            "medical": {
+                "text": "Yaralandınız mı? Yardım alın",
+                "action": "→ Doktorları göster"
+            },
+            "bamf": {
+                "text": "BAMF kayıt ofisine git",
+                "action": "→ Haritayı aç"
+            },
+            "legal": {
+                "text": "Ücretsiz yasal yardım al",
+                "action": ""
+            }
+        }
+    },
+    "features": {
+        "docVault": {
+            "title": "Belgenizi Anlayın",
+            "desc": "Resmi mektubunuzun fotoğrafını çekin"
+        },
+        "medTrans": {
+            "title": "Reçetenizi Çevirin",
+            "desc": ""
+        },
+        "doctor": {
+            "title": "Dilinizi konuşan bir doktor bulun"
+        },
+        "beds": {
+            "title": "Bu geceki boş yataklar"
+        },
+        "food": {
+            "title": "Yakında ücretsiz yiyecek"
+        }
+    }
+}

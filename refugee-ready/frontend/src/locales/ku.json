@@ -1,0 +1,82 @@
+{
+    "app": {
+        "name": "RefugeeReady",
+        "loading": "Tê barkirin...",
+        "navigate": "Biçe →",
+        "callNow": "Niha Telefon Bike",
+        "noResults": "Ti encam nehatin dîtin",
+        "justArrivedToday": "Ez îro hatim"
+    },
+    "languagePicker": {
+        "title": "Bixêrhatin / Welcome",
+        "subtitle": "Zimanê xwe hilbijêrin"
+    },
+    "roleSelector": {
+        "title": "Tu kî yî?",
+        "subtitle": "Vebijarka ku we çêtirîn vedibêje hilbijêrin.",
+        "roles": {
+            "refugee": "Ez nû gihiştim. Pêdiviya min bi alîkariyê heye.",
+            "host": "Sitargeh / Mêvandar",
+            "restaurant": "Xwaringeh / Nanpêjxane",
+            "doctor": "Bijîjk / Dilxwaz"
+        }
+    },
+    "roles": {
+        "refugee": "Penaber",
+        "host": "Sitargeh / Mêvandar",
+        "restaurant": "Xwaringeh / Nanpêjxane",
+        "doctor": "Bijîjk / Dilxwaz"
+    },
+    "survival": {
+        "title": "Rêberê Sax Mayînê ya 72-Saet",
+        "completed": "{{count}} ji {{total}} gavan temam bûne",
+        "day1": "Roja 1 — Sax Bimîne",
+        "day2": "Roja 2 — Xwe qeyd bike",
+        "week1": "Hefteya 1 — Îstîkrar",
+        "items": {
+            "wifi": {
+                "text": "WiFi-ya belaş bibîne — bi malbata xwe re biaxive",
+                "action": "→ WiFi nîşanî min bide"
+            },
+            "shelter": {
+                "text": "Ji bo îşev sitargeha lezgîn bibîne",
+                "action": "→ Nivînan nîşanî min bide"
+            },
+            "food": {
+                "text": "Xwarinê li nêzîkê bibîne",
+                "action": "→ Xwarina belaş nîşanî min bide"
+            },
+            "medical": {
+                "text": "Tu birîndar î? Alîkariyê bistîne",
+                "action": "→ Bijîjkan nîşanî min bide"
+            },
+            "bamf": {
+                "text": "Herin ofîsa qeydkirinê ya BAMF",
+                "action": "→ Nexşeyê Veke"
+            },
+            "legal": {
+                "text": "Alîkariya hiqûqî ya belaş bistîne",
+                "action": ""
+            }
+        }
+    },
+    "features": {
+        "docVault": {
+            "title": "Belgeya xwe Fêm Bikin",
+            "desc": "Wêneyek nameya xweya fermî bikişîne"
+        },
+        "medTrans": {
+            "title": "Reçeteya xwe wergerîne",
+            "desc": ""
+        },
+        "doctor": {
+            "title": "Bijîşkek ku bi zimanê we diaxive bibînin"
+        },
+        "beds": {
+            "title": "Cîhên (Nivin) îşev hene"
+        },
+        "food": {
+            "title": "Xwarina belaş a nêzîk"
+        }
+    }
+}

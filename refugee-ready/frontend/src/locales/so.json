@@ -1,0 +1,82 @@
+{
+    "app": {
+        "name": "RefugeeReady",
+        "loading": "Kor saaraya...",
+        "navigate": "Dhexgalka →",
+        "callNow": "Wac Hadda",
+        "noResults": "Waxa la filayo lama helin",
+        "justArrivedToday": "Waxaan soo gaadhay maanta"
+    },
+    "languagePicker": {
+        "title": "Soo Dhawoow / Welcome",
+        "subtitle": "Dooro luqaddaada"
+    },
+    "roleSelector": {
+        "title": "Waa kuma adiga?",
+        "subtitle": "Dooro qaybta kuugu habboon.",
+        "roles": {
+            "refugee": "Waxaan soo gaadhay hadda. Cawimo ayaan u baahanahay.",
+            "host": "Hoy / Martigeliye",
+            "restaurant": "Makhaayad / Rooti-labe",
+            "doctor": "Dhakhtar / Mutadawic"
+        }
+    },
+    "roles": {
+        "refugee": "Qoxooti",
+        "host": "Hoy / Martigeliye",
+        "restaurant": "Makhaayad / Rooti-labe",
+        "doctor": "Dhakhtar / Mutadawic"
+    },
+    "survival": {
+        "title": "Tilmaamaha Badbaadada ee 72-Saac",
+        "completed": "{{count}} ka mid ah {{total}} baa dhammaystiran",
+        "day1": "Maalinta 1aad — Badbaado",
+        "day2": "Maalinta 2aad — Isdiiwaangeli",
+        "week1": "Toddobaadka 1aad — Degdeggu",
+        "items": {
+            "wifi": {
+                "text": "Hel WiFi bilaash ah — wac ehelkaaga",
+                "action": "→ I tus WiFi"
+            },
+            "shelter": {
+                "text": "Hel hoyga degdegga ah caawa",
+                "action": "→ I tus sariiraha la heli karo"
+            },
+            "food": {
+                "text": "Ka hel cunto u dhow",
+                "action": "→ I tus cunto bilaash ah"
+            },
+            "medical": {
+                "text": "Miyaad dhaawacan tahay? Hel caawimaad",
+                "action": "→ I tus dhakhaatiirta"
+            },
+            "bamf": {
+                "text": "Tag xafiiska diiwaangelinta ee BAMF",
+                "action": "→ Fur Khariidadda"
+            },
+            "legal": {
+                "text": "Hel caawimaad sharci oo bilaash ah",
+                "action": ""
+            }
+        }
+    },
+    "features": {
+        "docVault": {
+            "title": "Faham Dukumiintigaaga",
+            "desc": "Sawir ka qaad waraaqahaaga rasmiga ah"
+        },
+        "medTrans": {
+            "title": "Tarjum warqadda dhakhtarkaaga",
+            "desc": ""
+        },
+        "doctor": {
+            "title": "Soo hel dhakhtar ku hadla luqaddaada"
+        },
+        "beds": {
+            "title": "Sariiraha la heli karo caawa"
+        },
+        "food": {
+            "title": "Cunto bilaash ah oo u dhow"
+        }
+    }
+}
