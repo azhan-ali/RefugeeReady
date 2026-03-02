@@ -1,0 +1,22 @@
+{
+    "languagePicker": {
+        "title": "Welcome / Willkommen",
+        "subtitle": "Please select your language to continue."
+    },
+    "roleSelector": {
+        "title": "How can we help you?",
+        "subtitle": "Select the option that best describes you.",
+        "roles": {
+            "refugee": "I just arrived. I need help.",
+            "host": "I have beds available tonight.",
+            "restaurant": "I have surplus food to share.",
+            "doctor": "I want to register my profile."
+        }
+    },
+    "roles": {
+        "refugee": "Refugee / Asylum Seeker",
+        "host": "Shelter / Host",
+        "restaurant": "Restaurant / Bakery",
+        "doctor": "Doctor / Volunteer"
+    }
+}
