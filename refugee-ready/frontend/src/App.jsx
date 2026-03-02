@@ -48,9 +48,9 @@ function App() {
 
     switch (role) {
       case 'refugee': return <RefugeeDashboard onBack={handleBackToRole} />;
-      case 'host': return <HostPanel />;
-      case 'restaurant': return <FoodPanel />;
-      case 'doctor': return <DoctorRegister />;
+      case 'host': return <HostPanel onBack={handleBackToRole} />;
+      case 'restaurant': return <FoodPanel onBack={handleBackToRole} />;
+      case 'doctor': return <DoctorRegister onBack={handleBackToRole} />;
       default: return <RoleSelector onSelectRole={handleSelectRole} onBack={handleBackToLanguage} />;
     }
   };

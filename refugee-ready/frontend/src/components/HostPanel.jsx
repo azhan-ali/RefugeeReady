@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ShieldCheck, PlusCircle, Trash2, Home, User, Clock, CheckCircle2, AlertTriangle, MessageSquare, Phone, MapPin } from 'lucide-react';
+import { ShieldCheck, PlusCircle, Trash2, Home, User, Clock, CheckCircle2, AlertTriangle, MessageSquare, Phone, MapPin, ArrowLeft } from 'lucide-react';
 
-export default function HostPanel() {
+export default function HostPanel({ onBack }) {
     const [formData, setFormData] = useState({
         shelterName: '',
         address: '',
@@ -97,6 +97,11 @@ export default function HostPanel() {
             {/* Header */}
             <header className="flex items-center justify-between mb-8 pb-6 border-b border-white/10 mt-safe pt-4">
                 <div className="flex items-center space-x-3">
+                    {onBack && (
+                        <button onClick={onBack} className="p-2.5 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors border border-white/10 mr-1 shadow-md">
+                            <ArrowLeft size={22} className="text-orange-400" />
+                        </button>
+                    )}
                     <ShieldCheck className="text-orange-500 w-8 h-8 md:w-10 md:h-10" />
                     <div>
                         <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">Host Dashboard</h1>

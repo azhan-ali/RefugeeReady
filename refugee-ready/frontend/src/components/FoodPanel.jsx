@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Store, MapPin, Clock, Hash, Phone, Leaf, Award, Repeat, Heart, CheckCircle2, Utensils, XCircle } from 'lucide-react';
+import { Store, MapPin, Clock, Hash, Phone, Leaf, Award, Repeat, Heart, CheckCircle2, Utensils, XCircle, ArrowLeft } from 'lucide-react';
 
-export default function FoodPanel() {
+export default function FoodPanel({ onBack }) {
     const [formData, setFormData] = useState({
         businessName: '',
         address: '',
@@ -124,7 +124,12 @@ export default function FoodPanel() {
 
             <header className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 pb-6 border-b border-white/10 mt-safe pt-4 gap-4">
                 <div className="flex items-center space-x-4">
-                    <div className="bg-green-500/20 p-3 rounded-2xl">
+                    {onBack && (
+                        <button onClick={onBack} className="p-2.5 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors border border-white/10 mr-1 shadow-md shrink-0">
+                            <ArrowLeft size={22} className="text-green-400" />
+                        </button>
+                    )}
+                    <div className="bg-green-500/20 p-3 rounded-2xl shrink-0">
                         <Heart className="text-green-400 w-8 h-8 md:w-10 md:h-10" />
                     </div>
                     <div>

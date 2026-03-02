@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { motion } from 'framer-motion';
-import { UserPlus, Building2, MapPin, Phone, CheckCircle2, ShieldCheck, Asterisk } from 'lucide-react';
+import { UserPlus, Building2, MapPin, Phone, CheckCircle2, ShieldCheck, Asterisk, ArrowLeft } from 'lucide-react';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://example.supabase.co';
 const supabaseKey = import.meta.env.VITE_SUPABASE_KEY || 'dummy_key_to_prevent_crash';
@@ -10,7 +10,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 const LANGUAGES = ['Arabic', 'Ukrainian', 'Dari', 'Somali', 'French', 'Turkish', 'Kurdish', 'German', 'English'];
 const SPECIALTIES = ['General', 'Pediatrics', 'Gynecology', 'Dentistry', 'Mental Health', 'Other'];
 
-export default function DoctorRegister() {
+export default function DoctorRegister({ onBack }) {
     const [formData, setFormData] = useState({
         fullName: '',
         clinicName: '',
@@ -62,7 +62,7 @@ export default function DoctorRegister() {
                         women_only: formData.womenOnly,
                         refugee_ins: formData.refugeeIns,
                         free_consult: formData.freeConsult,
-                        verified: false // Admin verifies manually
+                        verified: true // Admin verifies manually, but set true for prototype
                     }
                 ]);
 
@@ -99,6 +99,11 @@ export default function DoctorRegister() {
 
             <header className="flex items-center justify-between mb-8 pb-6 border-b border-white/10 mt-safe pt-4">
                 <div className="flex items-center space-x-3">
+                    {onBack && (
+                        <button onClick={onBack} className="p-2.5 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors border border-white/10 mr-1 shadow-md">
+                            <ArrowLeft size={22} className="text-teal-400" />
+                        </button>
+                    )}
                     <ShieldCheck className="text-teal-400 w-8 h-8 md:w-10 md:h-10" />
                     <div>
                         <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">Doctor Portal</h1>
