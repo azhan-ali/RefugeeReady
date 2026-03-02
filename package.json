@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
     "backend": "node backend/server.js",
-    "frontend": "cd refugee-ready/frontend && npm run dev"
+    "frontend": "cd refugee-ready/frontend && npm run dev",
+    "build": "cd refugee-ready/frontend && npm install && npm run build"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.98.0",
