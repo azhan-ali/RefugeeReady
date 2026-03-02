@@ -12,7 +12,7 @@ const CITIES = {
 
 // Check weather every hour using node-cron
 cron.schedule('0 * * * *', async () => {
-    console.log('Running hourly weather cron job...');
+    // Running hourly weather cron job...
     try {
         for (const [city, coords] of Object.entries(CITIES)) {
             const resp = await axios.get(
@@ -44,7 +44,7 @@ cron.schedule('0 * * * *', async () => {
                 if (error) {
                     console.error(`Error saving winter alert for ${city} via Supabase:`, error.message);
                 } else {
-                    console.log(`Saved winter alert for ${city}. Temp: ${temp}C`);
+                    // Saved winter alert
                 }
             }
         }

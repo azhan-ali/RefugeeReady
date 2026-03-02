@@ -4,29 +4,37 @@ const axios = require('axios');
 
 // Helper function to call Groq API
 const callGroqAPI = async (systemPrompt, userText) => {
-    const response = await axios.post(
-        'https://api.groq.com/openai/v1/chat/completions',
-        {
-            model: 'llama3-70b-8192',
-            messages: [
-                { role: 'system', content: systemPrompt },
-                { role: 'user', content: userText }
-            ],
-            temperature: 0.5,
-        },
-        {
-            headers: {
-                'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
-                'Content-Type': 'application/json'
+    console.log('Key exists:', !!process.env.GROQ_API_KEY);
+    try {
+        const response = await axios.post(
+            'https://api.groq.com/openai/v1/chat/completions',
+            {
+                model: 'llama3-70b-8192',
+                messages: [
+                    { role: 'system', content: systemPrompt },
+                    { role: 'user', content: userText }
+                ],
+                temperature: 0.5,
+            },
+            {
+                headers: {
+                    'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
+                    'Content-Type': 'application/json'
+                }
             }
-        }
-    );
-    return response.data.choices[0].message.content;
+        );
+        console.log('Groq API response:', response.data.choices[0].message.content);
+        return response.data.choices[0].message.content;
+    } catch (error) {
+        console.error('Groq API error:', error.response?.data || error.message);
+        throw error;
+    }
 };
 
 // @route POST /api/ai/explain-document
 // @desc  Explain a German document in the user's target language
 router.post('/explain-document', async (req, res) => {
+    console.log('Received request body for Document Vault:', req.body);
     try {
         const { text, targetLanguage, language } = req.body;
 
@@ -74,6 +82,7 @@ Do not include any other text, only the JSON object.`;
 // @route POST /api/ai/explain-medicine
 // @desc  Explain a German prescription/medicine in the user's target language
 router.post('/explain-medicine', async (req, res) => {
+    console.log('Received request body for Medicine Translator:', req.body);
     try {
         const { text, targetLanguage, language } = req.body;
 
