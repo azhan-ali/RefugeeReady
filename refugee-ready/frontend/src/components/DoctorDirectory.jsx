@@ -65,10 +65,15 @@ export default function DoctorDirectory({ location, lang }) {
 
     return (
         <div className="p-4 md:p-8 space-y-6 relative min-h-screen">
-            {/* Premium Background Elements */}
-            <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-teal-900/20 via-[#030407] to-[#030407] pointer-events-none z-0"></div>
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-teal-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
-            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+            {/* Premium Background */}
+            <div className="fixed inset-0 pointer-events-none z-0">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#010c10] via-[#021215] to-[#030407]" />
+                <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-teal-500/22 rounded-full blur-[130px] animate-pulse" style={{ animationDuration: '5s' }} />
+                <div className="absolute -bottom-40 -left-36 w-[560px] h-[560px] bg-blue-700/18 rounded-full blur-[120px] animate-pulse" style={{ animationDuration: '7s', animationDelay: '2s' }} />
+                <div className="absolute top-1/2 right-1/4 w-[300px] h-[300px] bg-cyan-800/20 rounded-full blur-[85px] animate-pulse" style={{ animationDuration: '4s', animationDelay: '1s' }} />
+                <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(rgba(20,184,166,1) 1px, transparent 1px), linear-gradient(90deg, rgba(20,184,166,1) 1px, transparent 1px)', backgroundSize: '56px 56px' }} />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.65)_100%)]" />
+            </div>
 
             <div className="relative z-10 flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-4 mb-6">
                 <div className="bg-gradient-to-br from-teal-500/20 to-blue-500/20 p-4 rounded-2xl border border-teal-500/30 shadow-[0_0_30px_rgba(20,184,166,0.2)] flex-shrink-0 w-fit">

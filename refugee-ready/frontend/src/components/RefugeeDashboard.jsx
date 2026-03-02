@@ -105,7 +105,28 @@ export default function RefugeeDashboard({ onBack }) {
     };
 
     return (
-        <div className="flex flex-col min-h-screen bg-[#030407] overflow-hidden pb-20">
+        <div className="flex flex-col min-h-screen overflow-hidden pb-20 relative text-white">
+
+            {/* === PREMIUM BACKGROUND === */}
+            <div className="fixed inset-0 z-0 pointer-events-none">
+                {/* Deep space base */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#02040f] via-[#050812] to-[#030407]" />
+                {/* Large cosmic blue orb - top left */}
+                <div className="absolute -top-56 -left-56 w-[700px] h-[700px] bg-indigo-600/20 rounded-full blur-[140px] animate-pulse" style={{ animationDuration: '6s' }} />
+                {/* Orange accent (brand) - bottom right */}
+                <div className="absolute -bottom-48 -right-48 w-[650px] h-[650px] bg-orange-600/15 rounded-full blur-[130px] animate-pulse" style={{ animationDuration: '8s', animationDelay: '2s' }} />
+                {/* Teal hint - center */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-blue-900/25 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }} />
+                {/* Small accent orb - top right */}
+                <div className="absolute top-20 right-10 w-[200px] h-[200px] bg-violet-600/15 rounded-full blur-[70px] animate-pulse" style={{ animationDuration: '4s', animationDelay: '3s' }} />
+                {/* Subtle grid */}
+                <div className="absolute inset-0 opacity-[0.025]" style={{
+                    backgroundImage: 'linear-gradient(rgba(99,102,241,1) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,1) 1px, transparent 1px)',
+                    backgroundSize: '64px 64px'
+                }} />
+                {/* Edge vignette */}
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.6)_100%)]" />
+            </div>
 
             {/* Fixed Header */}
             <header className="sticky top-0 z-40 bg-[#0a0b10]/90 backdrop-blur-xl border-b border-white/5">

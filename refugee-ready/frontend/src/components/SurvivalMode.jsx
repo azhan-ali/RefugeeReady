@@ -72,7 +72,17 @@ export default function SurvivalMode({ location, lang, setActiveTab }) {
     const progressPercent = totalItems === 0 ? 0 : (completedCount / totalItems) * 100;
 
     return (
-        <div className="px-4 py-6 md:px-8 max-w-4xl mx-auto pb-10">
+        <div className="px-4 py-6 md:px-8 max-w-4xl mx-auto pb-10 relative">
+
+            {/* Premium Background */}
+            <div className="fixed inset-0 pointer-events-none z-0">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#0f0200] via-[#100303] to-[#030407]" />
+                <div className="absolute -top-44 -left-40 w-[600px] h-[600px] bg-red-700/20 rounded-full blur-[130px] animate-pulse" style={{ animationDuration: '5s' }} />
+                <div className="absolute -bottom-44 -right-40 w-[580px] h-[580px] bg-orange-700/20 rounded-full blur-[130px] animate-pulse" style={{ animationDuration: '7s', animationDelay: '2s' }} />
+                <div className="absolute top-1/3 right-1/4 w-[300px] h-[300px] bg-red-900/25 rounded-full blur-[90px] animate-pulse" style={{ animationDuration: '4s', animationDelay: '1s' }} />
+                <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(rgba(239,68,68,1) 1px, transparent 1px), linear-gradient(90deg, rgba(239,68,68,1) 1px, transparent 1px)', backgroundSize: '56px 56px' }} />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.65)_100%)]" />
+            </div>
 
             {/* Header & Progress */}
             <div className="mb-10 p-6 md:p-8 bg-gradient-to-br from-red-600/10 to-accentOrg/10 border border-red-500/20 rounded-3xl relative overflow-hidden">
@@ -120,8 +130,8 @@ export default function SurvivalMode({ location, lang, setActiveTab }) {
                                         key={item.id}
                                         onClick={() => toggleItem(item.id)}
                                         className={`cursor-none group relative p-5 md:p-6 rounded-2xl border transition-all duration-300 ${isChecked
-                                                ? 'bg-green-500/5 border-green-500/20 shadow-[0_4px_20px_rgba(34,197,94,0.05)]'
-                                                : 'bg-cardDark/40 backdrop-blur-md border-white/5 hover:bg-cardHover/50 hover:border-white/10 hover:shadow-lg'
+                                            ? 'bg-green-500/5 border-green-500/20 shadow-[0_4px_20px_rgba(34,197,94,0.05)]'
+                                            : 'bg-cardDark/40 backdrop-blur-md border-white/5 hover:bg-cardHover/50 hover:border-white/10 hover:shadow-lg'
                                             }`}
                                     >
                                         <div className="flex items-start gap-4">

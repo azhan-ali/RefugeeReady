@@ -151,10 +151,15 @@ export default function MedicineTranslator({ lang, location }) {
 
     return (
         <div className="p-4 md:p-8 space-y-6 relative min-h-screen">
-            {/* Premium Background Elements */}
-            <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-violet-900/20 via-[#030407] to-[#030407] pointer-events-none z-0"></div>
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-violet-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
-            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-fuchsia-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+            {/* Premium Background */}
+            <div className="fixed inset-0 pointer-events-none z-0">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#0a0115] via-[#08021a] to-[#030407]" />
+                <div className="absolute -top-44 -right-44 w-[620px] h-[620px] bg-violet-600/22 rounded-full blur-[130px] animate-pulse" style={{ animationDuration: '5s' }} />
+                <div className="absolute -bottom-40 -left-36 w-[580px] h-[580px] bg-fuchsia-700/18 rounded-full blur-[130px] animate-pulse" style={{ animationDuration: '7s', animationDelay: '2s' }} />
+                <div className="absolute top-1/3 left-1/3 w-[320px] h-[320px] bg-purple-900/25 rounded-full blur-[90px] animate-pulse" style={{ animationDuration: '4s', animationDelay: '1s' }} />
+                <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(rgba(139,92,246,1) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,1) 1px, transparent 1px)', backgroundSize: '56px 56px' }} />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.65)_100%)]" />
+            </div>
 
             <div className="relative z-10 flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-4 mb-6">
                 <div className="bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 p-4 rounded-2xl border border-violet-500/30 shadow-[0_0_30px_rgba(139,92,246,0.2)] flex-shrink-0 w-fit">

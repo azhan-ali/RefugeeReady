@@ -116,10 +116,15 @@ out body;`;
 
     return (
         <div className="p-4 md:p-8 space-y-6 relative min-h-screen flex flex-col">
-            {/* Premium Background Elements */}
-            <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-[#030407] to-[#030407] pointer-events-none z-0"></div>
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
-            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+            {/* Premium Background */}
+            <div className="fixed inset-0 pointer-events-none z-0">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#010517] via-[#030812] to-[#030407]" />
+                <div className="absolute -top-40 -left-32 w-[580px] h-[580px] bg-blue-600/25 rounded-full blur-[130px] animate-pulse" style={{ animationDuration: '5s' }} />
+                <div className="absolute -bottom-40 -right-32 w-[500px] h-[500px] bg-indigo-700/20 rounded-full blur-[120px] animate-pulse" style={{ animationDuration: '7s', animationDelay: '2s' }} />
+                <div className="absolute top-1/3 right-1/4 w-[300px] h-[300px] bg-cyan-600/15 rounded-full blur-[90px] animate-pulse" style={{ animationDuration: '4s', animationDelay: '1s' }} />
+                <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(rgba(59,130,246,1) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,1) 1px, transparent 1px)', backgroundSize: '56px 56px' }} />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.65)_100%)]" />
+            </div>
 
             <div className="relative z-10 flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-4 mb-2 shrink-0">
                 <div className="bg-gradient-to-br from-blue-500/20 to-indigo-500/20 p-4 rounded-2xl border border-blue-500/30 shadow-[0_0_30px_rgba(59,130,246,0.2)] flex-shrink-0 w-fit">

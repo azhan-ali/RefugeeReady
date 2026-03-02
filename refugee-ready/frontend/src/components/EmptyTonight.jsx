@@ -97,10 +97,15 @@ export default function EmptyTonight({ location, lang }) {
 
     return (
         <div className="p-4 md:p-8 space-y-6 relative min-h-screen">
-            {/* Premium Background Elements */}
-            <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-teal-900/20 via-[#030407] to-[#030407] pointer-events-none z-0"></div>
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-teal-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
-            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+            {/* Premium Background */}
+            <div className="fixed inset-0 pointer-events-none z-0">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#01100d] via-[#020f0f] to-[#030407]" />
+                <div className="absolute -top-40 -left-40 w-[580px] h-[580px] bg-teal-500/22 rounded-full blur-[130px] animate-pulse" style={{ animationDuration: '5s' }} />
+                <div className="absolute -bottom-40 -right-32 w-[560px] h-[560px] bg-cyan-600/18 rounded-full blur-[120px] animate-pulse" style={{ animationDuration: '6s', animationDelay: '2s' }} />
+                <div className="absolute top-1/4 right-1/3 w-[280px] h-[280px] bg-emerald-800/20 rounded-full blur-[80px] animate-pulse" style={{ animationDuration: '4s', animationDelay: '1s' }} />
+                <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(rgba(20,184,166,1) 1px, transparent 1px), linear-gradient(90deg, rgba(20,184,166,1) 1px, transparent 1px)', backgroundSize: '56px 56px' }} />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.65)_100%)]" />
+            </div>
 
             <div className="relative z-10 flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-4 mb-6">
                 <div className="bg-gradient-to-br from-teal-500/20 to-cyan-500/20 p-4 rounded-2xl border border-teal-500/30 shadow-[0_0_30px_rgba(20,184,166,0.2)] flex-shrink-0 w-fit">
