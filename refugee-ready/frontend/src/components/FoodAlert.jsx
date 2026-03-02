@@ -124,10 +124,24 @@ export default function FoodAlert({ location, lang }) {
     });
 
     return (
-        <div className="p-4 md:p-8 space-y-6">
-            <div className="flex items-center space-x-3 mb-2">
-                <Utensils className="text-green-500" size={28} />
-                <h2 className="text-2xl font-bold text-white">Food Rescue</h2>
+        <div className="p-4 md:p-8 space-y-6 relative min-h-screen">
+            {/* Premium Background Elements */}
+            <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-green-900/20 via-[#030407] to-[#030407] pointer-events-none z-0"></div>
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-green-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+
+            <div className="relative z-10 flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-4 mb-6">
+                <div className="bg-gradient-to-br from-green-500/20 to-emerald-500/20 p-4 rounded-2xl border border-green-500/30 shadow-[0_0_30px_rgba(34,197,94,0.2)] flex-shrink-0 w-fit">
+                    <Utensils className="text-green-400 w-8 h-8 md:w-10 md:h-10" />
+                </div>
+                <div>
+                    <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                        Food <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400">Rescue</span>
+                    </h2>
+                    <p className="text-gray-400 leading-relaxed text-sm md:text-lg mt-2 max-w-xl font-light">
+                        Discover and claim surplus food from local restaurants and bakeries for free.
+                    </p>
+                </div>
             </div>
 
             {hasFoodSoon && !loading && (
@@ -145,7 +159,7 @@ export default function FoodAlert({ location, lang }) {
             )}
 
             {/* Filter Buttons */}
-            <div className="flex space-x-2 overflow-x-auto pb-2 scrollbar-none">
+            <div className="relative z-10 flex space-x-3 overflow-x-auto pb-4 scrollbar-none pt-2">
                 <button
                     onClick={() => setFilter('all')}
                     className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors cursor-none ${filter === 'all'

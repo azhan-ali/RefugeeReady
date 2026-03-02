@@ -92,17 +92,28 @@ export default function DocumentVault({ lang }) {
     };
 
     return (
-        <div className="p-4 md:p-8 space-y-6">
-            <div className="flex items-center space-x-3 mb-2">
-                <FileScan className="text-purple-500" size={28} />
-                <h2 className="text-2xl font-bold text-white">Document Vault</h2>
+        <div className="p-4 md:p-8 space-y-6 relative min-h-screen">
+            {/* Premium Background Elements */}
+            <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-[#030407] to-[#030407] pointer-events-none z-0"></div>
+            <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+            <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+
+            <div className="relative z-10 flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-4 mb-6">
+                <div className="bg-gradient-to-br from-purple-500/20 to-blue-500/20 p-4 rounded-2xl border border-purple-500/30 shadow-[0_0_30px_rgba(168,85,247,0.2)] flex-shrink-0 w-fit">
+                    <FileScan className="text-purple-400 w-8 h-8 md:w-10 md:h-10" />
+                </div>
+                <div>
+                    <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                        Document <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">Vault</span>
+                    </h2>
+                    <p className="text-gray-400 leading-relaxed text-sm md:text-lg mt-2 max-w-xl font-light">
+                        Take a photo of any official German letter. Our AI will securely translate and explain it simply in your language.
+                    </p>
+                </div>
             </div>
-            <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-                Take a photo of any official German letter (e.g. BAMF or court notices). We will translate and explain it simply.
-            </p>
 
             {/* Step Indicators */}
-            <div className="flex justify-between items-center px-2 py-4 border-b border-white/5 md:max-w-md md:mx-auto">
+            <div className="relative z-10 flex justify-between items-center px-2 py-4 border-b border-white/5 md:max-w-md md:mx-auto">
                 <div className={`flex flex-col items-center \${status === 'idle' ? 'text-purple-400 opacity-100' : 'text-gray-500 opacity-60'}`}>
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm mb-1 \${status === 'idle' ? 'bg-purple-500/20 text-purple-400 border border-purple-500/50' : 'bg-white/5 border border-white/10'}`}>1</div>
                     <span className="text-[10px] uppercase font-bold tracking-wider">Photo</span>
@@ -130,9 +141,11 @@ export default function DocumentVault({ lang }) {
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.95 }}
-                            className="bg-[#0a0b10] border-2 border-dashed border-purple-500/30 rounded-3xl p-6 flex flex-col items-center justify-center space-y-6 text-center hover:border-purple-500/60 transition-colors"
+                            className="bg-white/[0.02] backdrop-blur-xl border-2 border-dashed border-purple-500/30 rounded-3xl p-8 flex flex-col items-center justify-center space-y-6 text-center hover:border-purple-400/60 hover:bg-white/[0.05] transition-all duration-300 shadow-2xl relative overflow-hidden group"
                         >
-                            <div className="bg-purple-500/10 p-5 rounded-full">
+                            <div className="absolute inset-0 bg-gradient-to-b from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                            <div className="bg-gradient-to-br from-purple-500/20 to-blue-500/20 p-6 rounded-full border border-purple-500/30 shadow-[0_0_30px_rgba(168,85,247,0.2)] group-hover:scale-110 transition-transform duration-500 relative z-10">
                                 <FileText className="text-purple-400 w-12 h-12" />
                             </div>
 
@@ -147,7 +160,7 @@ export default function DocumentVault({ lang }) {
                                 />
                                 <button
                                     onClick={() => cameraInputRef.current?.click()}
-                                    className="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold text-lg py-5 px-6 rounded-2xl flex items-center justify-center space-x-3 shadow-[0_0_20px_rgba(147,51,234,0.3)] transition-all cursor-none"
+                                    className="relative z-10 w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-bold text-lg py-5 px-6 rounded-2xl flex items-center justify-center space-x-3 shadow-[0_5px_20px_rgba(168,85,247,0.3)] hover:shadow-[0_8px_30px_rgba(168,85,247,0.5)] transition-all duration-300 transform hover:-translate-y-1 cursor-none"
                                 >
                                     <Camera size={24} />
                                     <span>Take Photo</span>
@@ -164,7 +177,7 @@ export default function DocumentVault({ lang }) {
                                 />
                                 <button
                                     onClick={() => galleryInputRef.current?.click()}
-                                    className="w-full bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 font-semibold py-4 px-6 rounded-2xl flex items-center justify-center space-x-3 transition-all cursor-none"
+                                    className="relative z-10 w-full bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white font-semibold py-4 px-6 rounded-2xl flex items-center justify-center space-x-3 transition-all duration-300 cursor-none"
                                 >
                                     <ImageIcon size={20} />
                                     <span>Upload from Gallery</span>

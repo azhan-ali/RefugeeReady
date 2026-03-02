@@ -96,17 +96,28 @@ export default function EmptyTonight({ location, lang }) {
     };
 
     return (
-        <div className="p-4 md:p-8 space-y-6">
-            <div className="flex items-center space-x-3 mb-2">
-                <Home className="text-teal-400" size={28} />
-                <h2 className="text-2xl font-bold text-white">Empty Tonight</h2>
+        <div className="p-4 md:p-8 space-y-6 relative min-h-screen">
+            {/* Premium Background Elements */}
+            <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-teal-900/20 via-[#030407] to-[#030407] pointer-events-none z-0"></div>
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-teal-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+
+            <div className="relative z-10 flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-4 mb-6">
+                <div className="bg-gradient-to-br from-teal-500/20 to-cyan-500/20 p-4 rounded-2xl border border-teal-500/30 shadow-[0_0_30px_rgba(20,184,166,0.2)] flex-shrink-0 w-fit">
+                    <Home className="text-teal-400 w-8 h-8 md:w-10 md:h-10" />
+                </div>
+                <div>
+                    <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                        Empty <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-400">Tonight</span>
+                    </h2>
+                    <p className="text-gray-400 leading-relaxed text-sm md:text-lg mt-2 max-w-xl font-light">
+                        Real-time available emergency beds. Updated instantly by verified local hosts and shelters.
+                    </p>
+                </div>
             </div>
-            <p className="text-gray-400 leading-relaxed text-sm md:text-base">
-                Real-time available emergency beds. Updated instantly by verified shelters.
-            </p>
 
             {/* Top Bar (Count + Flash animation) */}
-            <div className="flex justify-between items-center bg-[#0a0b10] p-4 rounded-xl border border-white/10 shadow-lg relative overflow-hidden">
+            <div className="relative z-10 flex justify-between items-center bg-white/[0.03] backdrop-blur-xl p-5 rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
                 <AnimatePresence>
                     {flashNewData && (
                         <motion.div
@@ -119,9 +130,9 @@ export default function EmptyTonight({ location, lang }) {
                     )}
                 </AnimatePresence>
 
-                <div className="flex items-center gap-3 relative z-10">
-                    <div className="bg-teal-500/20 p-2 rounded-full">
-                        <Home size={20} className="text-teal-400" />
+                <div className="flex items-center gap-4 relative z-10">
+                    <div className="bg-gradient-to-br from-teal-500/20 to-cyan-500/20 p-3 rounded-full border border-teal-500/30">
+                        <Home size={24} className="text-teal-400" />
                     </div>
                     {loading && beds.length === 0 ? (
                         <span className="font-bold text-white">Loading shelters...</span>

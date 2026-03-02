@@ -101,96 +101,124 @@ out body;`;
         fetchSpots();
     }, [location]);
 
-    if (!location || !location.lat || !location.lng) {
-        return (
-            <div className="flex flex-col items-center justify-center p-8 bg-gray-900 rounded-lg shadow-sm border border-gray-800 text-center text-gray-300">
-                <MapPin size={48} className="mb-4 text-gray-500 opacity-50" />
-                <h3 className="text-xl font-medium text-white mb-2">Location Required</h3>
-                <p>Please enable location to find WiFi spots nearby.</p>
+    <div className="p-4 md:p-8 space-y-6 relative min-h-screen">
+        {/* Premium Background Elements */}
+        <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-[#030407] to-[#030407] pointer-events-none z-0"></div>
+
+        <div className="relative z-10 flex flex-col items-center justify-center p-12 bg-white/[0.03] backdrop-blur-xl rounded-3xl shadow-2xl border border-white/10 text-center text-gray-300">
+            <div className="bg-blue-500/10 p-5 rounded-full mb-6">
+                <MapPin size={48} className="text-blue-400" />
             </div>
-        );
-    }
+            <h3 className="text-2xl font-bold text-white mb-3 tracking-wide">Location Required</h3>
+            <p className="max-w-md text-gray-400">Please enable location access to find the closest free WiFi spots. We do not store your location.</p>
+        </div>
+    </div>
 
     return (
-        <div className="flex flex-col w-full h-[80vh] bg-gray-900 rounded-lg overflow-hidden shadow-lg border border-gray-800">
+        <div className="p-4 md:p-8 space-y-6 relative min-h-screen flex flex-col">
+            {/* Premium Background Elements */}
+            <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-[#030407] to-[#030407] pointer-events-none z-0"></div>
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
 
-            {/* Map Section - Top Half */}
-            <div className="h-1/2 w-full relative z-0">
-                <MapContainer
-                    center={[location.lat, location.lng]}
-                    zoom={14}
-                    scrollWheelZoom={true}
-                    className="h-full w-full"
-                >
-                    <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-
-                    <Marker position={[location.lat, location.lng]} icon={userIcon}>
-                        <Popup>You are here</Popup>
-                    </Marker>
-
-                    {spots.map((spot) => (
-                        <Marker key={spot.id} position={[spot.lat, spot.lng]} icon={wifiPinIcon}>
-                            <Popup>{spot.name}</Popup>
-                        </Marker>
-                    ))}
-                </MapContainer>
+            <div className="relative z-10 flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-4 mb-2 shrink-0">
+                <div className="bg-gradient-to-br from-blue-500/20 to-indigo-500/20 p-4 rounded-2xl border border-blue-500/30 shadow-[0_0_30px_rgba(59,130,246,0.2)] flex-shrink-0 w-fit">
+                    <Wifi className="text-blue-400 w-8 h-8 md:w-10 md:h-10" />
+                </div>
+                <div>
+                    <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                        Free <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">WiFi Spots</span>
+                    </h2>
+                    <p className="text-gray-400 leading-relaxed text-sm md:text-lg mt-2 font-light">
+                        Find free public internet connections nearby to contact your family.
+                    </p>
+                </div>
             </div>
 
-            {/* List Section - Bottom Half */}
-            <div className="h-1/2 flex flex-col bg-gray-900 z-10">
-                <div className="p-4 border-b border-gray-800 flex justify-between items-center bg-gray-900 shrink-0">
-                    <h2 className="text-xl font-semibold text-white flex items-center gap-2">
-                        <Wifi className="text-blue-400" />
-                        Free WiFi Near You
-                    </h2>
-                    {loading && (
-                        <span className="text-sm text-blue-400 animate-pulse">Searching...</span>
-                    )}
-                    {!loading && spots.length > 0 && (
-                        <span className="text-sm text-gray-400">{spots.length} spots found</span>
-                    )}
+            <div className="relative z-10 flex flex-col w-full h-[65vh] md:h-[70vh] bg-white/[0.02] backdrop-blur-3xl rounded-3xl overflow-hidden shadow-2xl border border-white/10 mt-6 shrink-0">
+                {/* Map Section - Top Half */}
+                <div className="h-1/2 md:h-3/5 w-full relative z-0 border-b border-white/10">
+                    <div className="absolute inset-0 bg-blue-500/5 mix-blend-overlay z-10 pointer-events-none"></div>
+                    <MapContainer
+                        center={[location.lat, location.lng]}
+                        zoom={14}
+                        scrollWheelZoom={true}
+                        className="h-full w-full"
+                    >
+                        <TileLayer
+                            attribution='&copy; OpenStreetMap'
+                            url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+                        />
+
+                        <Marker position={[location.lat, location.lng]} icon={userIcon}>
+                            <Popup><span className="text-black font-bold">You are here</span></Popup>
+                        </Marker>
+
+                        {spots.map((spot) => (
+                            <Marker key={spot.id} position={[spot.lat, spot.lng]} icon={wifiPinIcon}>
+                                <Popup><span className="text-black font-bold">{spot.name}</span></Popup>
+                            </Marker>
+                        ))}
+                    </MapContainer>
                 </div>
 
-                <div className="flex-1 overflow-y-auto p-4 space-y-3">
-                    {!loading && spots.length === 0 && (
-                        <div className="text-center py-8 text-gray-500">
-                            No free WiFi spots found within 2km.
-                        </div>
-                    )}
+                {/* List Section - Bottom Half */}
+                <div className="h-1/2 md:h-2/5 flex flex-col bg-transparent z-10">
+                    <div className="p-4 md:p-5 border-b border-white/10 flex justify-between items-center bg-white/[0.03] backdrop-blur-md shrink-0">
+                        <h2 className="text-lg md:text-xl font-bold text-white flex items-center gap-2 tracking-wide">
+                            <Wifi className="text-blue-400" size={20} />
+                            Nearest Connections
+                        </h2>
+                        {loading && (
+                            <span className="text-xs md:text-sm text-blue-400 animate-pulse font-semibold tracking-widest uppercase bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">Scanning</span>
+                        )}
+                        {!loading && spots.length > 0 && (
+                            <span className="text-sm text-gray-400">{spots.length} spots found</span>
+                        )}
+                    </div>
 
-                    {spots.map((spot) => (
-                        <div
-                            key={spot.id}
-                            className="bg-gray-800 rounded-lg p-4 flex items-center justify-between border border-gray-700 hover:border-gray-600 transition-colors"
-                        >
-                            <div className="flex items-center gap-4">
-                                <div className="bg-blue-900/40 p-3 rounded-full shrink-0">
-                                    <Wifi className="text-blue-400 fill-blue-400/20" size={24} />
-                                </div>
-                                <div>
-                                    <h3 className="text-white font-medium" title={spot.name}>
-                                        {spot.name.length > 30 ? spot.name.substring(0, 30) + '...' : spot.name}
-                                    </h3>
-                                    <p className="text-gray-400 text-sm mt-1">
-                                        {(spot.distance).toFixed(2)} km away
-                                    </p>
-                                </div>
+                    <div className="flex-1 overflow-y-auto scrollbar-none">
+                        {loading && spots.length === 0 ? (
+                            <div className="flex justify-center items-center h-full">
+                                <div className="animate-spin rounded-full h-8 w-8 border-4 border-white/10 border-t-blue-500"></div>
                             </div>
-
-                            <a
-                                href={`https://maps.google.com/?q=${spot.lat},${spot.lng}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg font-medium text-sm flex items-center gap-2 transition-colors shrink-0"
-                            >
-                                Navigate
-                                <Navigation size={16} className="ml-1" />
-                            </a>
-                        </div>
-                    ))}
+                        ) : spots.length === 0 ? (
+                            <div className="p-8 text-center text-gray-400 flex flex-col items-center">
+                                <Wifi size={32} className="opacity-20 mb-3" />
+                                <p>No free WiFi spots found within 2km.</p>
+                                <p className="text-sm mt-1">Try moving to a more central location.</p>
+                            </div>
+                        ) : (
+                            <ul className="divide-y divide-white/5">
+                                {spots.map((spot) => (
+                                    <li key={spot.id} className="p-4 md:p-5 hover:bg-white/5 transition-colors group cursor-none">
+                                        <div className="flex justify-between items-center">
+                                            <div className="flex items-start gap-3">
+                                                <div className="bg-blue-500/10 p-2.5 rounded-xl border border-blue-500/20 group-hover:bg-blue-500/20 transition-all shadow-[0_0_10px_rgba(59,130,246,0.1)]">
+                                                    <Wifi size={18} className="text-blue-400" />
+                                                </div>
+                                                <div>
+                                                    <h3 className="text-white font-bold tracking-wide text-[15px]">{spot.name}</h3>
+                                                    <p className="text-gray-400 text-sm flex items-center gap-1.5 mt-0.5">
+                                                        <Navigation size={12} className="text-blue-400/70" />
+                                                        {spot.distance.toFixed(1)} km away
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <a
+                                                href={`https://www.google.com/maps/dir/?api=1&destination=${spot.lat},${spot.lng}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="cursor-none bg-white/5 hover:bg-white/10 border border-white/10 hover:border-blue-500/30 text-blue-300 font-semibold px-4 py-2 rounded-xl text-sm transition-all shadow-sm flex items-center gap-2"
+                                            >
+                                                <Navigation size={14} /> Go
+                                            </a>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
