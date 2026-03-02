@@ -9,7 +9,7 @@ const callGroqAPI = async (systemPrompt, userText) => {
         const response = await axios.post(
             'https://api.groq.com/openai/v1/chat/completions',
             {
-                model: 'llama3-70b-8192',
+                model: 'llama-3.3-70b-versatile',
                 messages: [
                     { role: 'system', content: systemPrompt },
                     { role: 'user', content: userText }
@@ -58,7 +58,13 @@ Do not include any other text, only the JSON object.`;
 
         let explanation;
         try {
-            explanation = JSON.parse(explanationStr);
+            // Strip any markdown fencing that Groq sometimes outputs
+            let cleanStr = explanationStr.trim();
+            if (cleanStr.startsWith('```json')) cleanStr = cleanStr.replace(/^```json/, '');
+            if (cleanStr.startsWith('```')) cleanStr = cleanStr.replace(/^```/, '');
+            if (cleanStr.endsWith('```')) cleanStr = cleanStr.substring(0, cleanStr.length - 3).trim();
+
+            explanation = JSON.parse(cleanStr);
         } catch (e) {
             console.error("Failed to parse AI JSON:", explanationStr);
             explanation = {
@@ -113,7 +119,13 @@ Do not include any other text, only the JSON object. Disclaimer: Always advise t
 
         let explanation;
         try {
-            explanation = JSON.parse(explanationStr);
+            // Strip any markdown fencing that Groq sometimes outputs
+            let cleanStr = explanationStr.trim();
+            if (cleanStr.startsWith('```json')) cleanStr = cleanStr.replace(/^```json/, '');
+            if (cleanStr.startsWith('```')) cleanStr = cleanStr.replace(/^```/, '');
+            if (cleanStr.endsWith('```')) cleanStr = cleanStr.substring(0, cleanStr.length - 3).trim();
+
+            explanation = JSON.parse(cleanStr);
         } catch (e) {
             console.error("Failed to parse AI JSON (Medicine):", explanationStr);
             explanation = {
