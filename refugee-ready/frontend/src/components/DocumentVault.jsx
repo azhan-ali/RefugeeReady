@@ -36,7 +36,7 @@ export default function DocumentVault({ lang }) {
             const tesseractResult = await Tesseract.recognize(
                 imageSrc,
                 'deu',
-                { logger: m => console.log(m) }
+                { logger: m => { } }
             );
 
             extractedText = tesseractResult.data.text;

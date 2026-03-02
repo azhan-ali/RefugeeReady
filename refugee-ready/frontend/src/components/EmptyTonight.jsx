@@ -50,7 +50,7 @@ export default function EmptyTonight({ location, lang }) {
         const subscription = supabase
             .channel('public:beds')
             .on('postgres_changes', { event: '*', schema: 'public', table: 'beds' }, (payload) => {
-                console.log('Real-time update received!', payload);
+                // Real-time update received
                 setFlashNewData(true);
                 fetchBeds();
                 setTimeout(() => setFlashNewData(false), 2000); // Remove flash after 2s

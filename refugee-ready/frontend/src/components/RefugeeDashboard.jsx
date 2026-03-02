@@ -122,7 +122,7 @@ export default function RefugeeDashboard({ onBack }) {
                                     onBack();
                                 }
                             }}
-                            className="cursor-none text-gray-400 hover:text-white transition-colors bg-white/5 hover:bg-white/10 p-2 rounded-full backdrop-blur-md border border-white/10"
+                            className="cursor-none text-gray-400 hover:text-white transition-colors bg-white/5 hover:bg-white/10 p-3 flex items-center justify-center rounded-full backdrop-blur-md border border-white/10"
                             aria-label="Back"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
@@ -176,7 +176,7 @@ export default function RefugeeDashboard({ onBack }) {
                             }`}
                     >
                         <AlertCircle size={24} className={survivalModeActive ? 'animate-pulse' : ''} />
-                        <span>I just arrived today</span>
+                        <span>{t('app.justArrivedToday', 'I just arrived today')}</span>
                     </button>
                 </div>
 

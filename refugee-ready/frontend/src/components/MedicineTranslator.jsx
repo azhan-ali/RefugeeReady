@@ -50,7 +50,7 @@ export default function MedicineTranslator({ lang, location }) {
             const tesseractResult = await Tesseract.recognize(
                 imageSrc,
                 'deu',
-                { logger: m => console.log(m) }
+                { logger: m => { } }
             );
 
             currentText = tesseractResult.data.text;

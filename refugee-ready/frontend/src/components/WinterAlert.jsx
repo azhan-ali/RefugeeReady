@@ -143,7 +143,7 @@ export default function WinterAlert({ location, lang }) {
                 {/* Dismiss Button */}
                 <button
                     onClick={handleDismiss}
-                    className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 p-2 rounded-full text-blue-200 transition-colors z-20 cursor-none"
+                    className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 p-3 rounded-full flex items-center justify-center text-blue-200 transition-colors z-20 cursor-none"
                     aria-label="Dismiss Alert"
                 >
                     <X size={20} />

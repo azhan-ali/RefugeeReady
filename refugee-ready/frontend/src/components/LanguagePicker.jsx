@@ -17,7 +17,7 @@ const languages = [
 ];
 
 export default function LanguagePicker({ onSelectLanguage }) {
-    const { i18n } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     const handleSelect = (code) => {
         i18n.changeLanguage(code);
@@ -61,7 +61,7 @@ export default function LanguagePicker({ onSelectLanguage }) {
                     </h1>
 
                     <p className="text-lg md:text-xl text-gray-400 font-light mt-4 max-w-sm leading-relaxed">
-                        Select your language to begin securing your essential resources.
+                        {t('languagePicker.subtitle', 'Select your language to begin securing your essential resources.')}
                     </p>
                 </motion.div>
 
