@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ShieldCheck, PlusCircle, Trash2, Home, User, Clock, CheckCircle2, AlertTriangle, MessageSquare, Phone } from 'lucide-react';
+import { ShieldCheck, PlusCircle, Trash2, Home, User, Clock, CheckCircle2, AlertTriangle, MessageSquare, Phone, MapPin } from 'lucide-react';
 
 export default function HostPanel() {
     const [formData, setFormData] = useState({
