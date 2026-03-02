@@ -1,0 +1,10 @@
+{
+    "buildCommand": "cd refugee-ready/frontend && npm install && npm run build",
+    "outputDirectory": "refugee-ready/frontend/dist",
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
+    ]
+}
