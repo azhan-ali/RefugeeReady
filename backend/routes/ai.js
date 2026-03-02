@@ -34,7 +34,8 @@ const callGroqAPI = async (systemPrompt, userText) => {
 // @route POST /api/ai/explain-document
 // @desc  Explain a German document in the user's target language
 router.post('/explain-document', async (req, res) => {
-    console.log('Received request body for Document Vault:', req.body);
+    console.log('Key exists:', !!process.env.GROQ_API_KEY);
+    console.log('Request received:', req.body);
     try {
         const { text, targetLanguage, language } = req.body;
 
@@ -82,7 +83,8 @@ Do not include any other text, only the JSON object.`;
 // @route POST /api/ai/explain-medicine
 // @desc  Explain a German prescription/medicine in the user's target language
 router.post('/explain-medicine', async (req, res) => {
-    console.log('Received request body for Medicine Translator:', req.body);
+    console.log('Key exists:', !!process.env.GROQ_API_KEY);
+    console.log('Request received:', req.body);
     try {
         const { text, targetLanguage, language } = req.body;
 
