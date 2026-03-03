@@ -1,39 +1,43 @@
 const express = require('express');
 const router = express.Router();
-const supabase = require('../supabase');
+
+// In-memory store that persists as long as the server is running
+// This works even without a database, perfect for demo
+let foodStore = [];
+let nextId = 1;
 
 // @route GET /api/food
-// @desc  Get food listings
-router.get('/', async (req, res) => {
-    try {
-        const { data, error } = await supabase
-            .from('food')
-            .select('*')
-            .order('created_at', { ascending: false });
-
-        if (error) throw error;
-        res.json({ success: true, food: data });
-    } catch (error) {
-        console.error('Food GET error:', error);
-        res.status(500).json({ success: false, error: 'Failed to fetch food listings' });
-    }
+router.get('/', (req, res) => {
+    // Return non-claimed listings only, newest first
+    const active = foodStore.filter(f => !f.claimed).reverse();
+    res.json({ success: true, food: active });
 });
 
 // @route POST /api/food
-// @desc  Create a new food listing
-router.post('/', async (req, res) => {
+router.post('/', (req, res) => {
     try {
-        const { title, description, location, pickup_time } = req.body;
+        const { title, business_name, description, food_items, location, address, pickup_time, available_time_window, halal, vegan, total_count, contact_phone } = req.body;
 
-        const { data, error } = await supabase
-            .from('food')
-            .insert([
-                { title, description, location, pickup_time, claimed: false }
-            ])
-            .select();
+        const newListing = {
+            id: String(nextId++),
+            title: title || business_name || 'Food Listing',
+            business_name: business_name || title || '',
+            description: description || food_items || '',
+            food_items: food_items || description || '',
+            location: location || address || '',
+            address: address || location || '',
+            pickup_time: pickup_time || available_time_window || '',
+            halal: halal || false,
+            vegan: vegan || false,
+            total_count: total_count || 1,
+            contact_phone: contact_phone || '',
+            claimed: false,
+            created_at: new Date().toISOString()
+        };
 
-        if (error) throw error;
-        res.json({ success: true, food: data[0] });
+        foodStore.push(newListing);
+        console.log(`✅ Food listing added: ${newListing.title} at ${newListing.location}`);
+        res.json({ success: true, food: newListing });
     } catch (error) {
         console.error('Food POST error:', error);
         res.status(500).json({ success: false, error: 'Failed to add food listing' });
@@ -41,46 +45,21 @@ router.post('/', async (req, res) => {
 });
 
 // @route PATCH /api/food/:id/claim
-// @desc  Mark a food listing as claimed
-router.patch('/:id/claim', async (req, res) => {
-    try {
-        const { id } = req.params;
-
-        const { data, error } = await supabase
-            .from('food')
-            .update({ claimed: true })
-            .eq('id', id)
-            .select();
-
-        if (error) throw error;
-
-        if (!data || data.length === 0) {
-            return res.status(404).json({ success: false, error: 'Food listing not found' });
-        }
-
-        res.json({ success: true, food: data[0] });
-    } catch (error) {
-        console.error('Food PATCH error:', error);
-        res.status(500).json({ success: false, error: 'Failed to claim food' });
-    }
+router.patch('/:id/claim', (req, res) => {
+    const item = foodStore.find(f => f.id === req.params.id);
+    if (!item) return res.status(404).json({ success: false, error: 'Food listing not found' });
+    item.claimed = true;
+    res.json({ success: true, food: item });
 });
 
 // @route DELETE /api/food/:id
-// @desc  Delete a food listing (mark as gone)
-router.delete('/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { error } = await supabase
-            .from('food')
-            .delete()
-            .eq('id', id);
-
-        if (error) throw error;
-        res.json({ success: true, message: 'Deleted successfully' });
-    } catch (error) {
-        console.error('Food DELETE error:', error);
-        res.status(500).json({ success: false, error: 'Failed to delete food listing' });
+router.delete('/:id', (req, res) => {
+    const before = foodStore.length;
+    foodStore = foodStore.filter(f => f.id !== req.params.id);
+    if (foodStore.length === before) {
+        return res.status(404).json({ success: false, error: 'Not found' });
     }
+    res.json({ success: true, message: 'Deleted successfully' });
 });
 
 module.exports = router;
