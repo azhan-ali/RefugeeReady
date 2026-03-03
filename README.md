@@ -141,8 +141,8 @@ Groq API          Document + Medicine AI      Free tier
 
 ### 1. Clone
 ```bash
-git clone https://github.com/YOUR_USERNAME/refugee-ready
-cd refugee-ready
+git clone https://github.com/azhan-ali/RefugeeReady
+cd RefugeeReady
 ```
 
 ### 2. Backend Setup
@@ -220,13 +220,18 @@ Amoxicillin 250mg — 2x täglich, 7 Tage, vor dem Essen
 
 ## 🤝 Contributing
 
-Open source and built for social good. Contributions welcome.
+[![GitHub](https://img.shields.io/badge/GitHub-azhan--ali%2FRefugeeReady-24292e?style=for-the-badge&logo=github&logoColor=white)](https://github.com/azhan-ali/RefugeeReady)
+[![MIT License](https://img.shields.io/badge/License-MIT-b57bff?style=for-the-badge)](https://github.com/azhan-ali/RefugeeReady/blob/main/LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-00e5a0?style=for-the-badge)](https://github.com/azhan-ali/RefugeeReady/pulls)
+
+Open source and built for social good. Contributions are **very welcome** — whether you're a developer, translator, or NGO worker.
 
 ```bash
+git clone https://github.com/azhan-ali/RefugeeReady
 git checkout -b feature/your-feature
 git commit -m 'Add your feature'
 git push origin feature/your-feature
-# Open a Pull Request
+# Open a Pull Request ✅
 ```
 
 ---

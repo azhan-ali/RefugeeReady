@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { Globe2, ChevronRight } from 'lucide-react';
+import { Globe2, ChevronRight, Github, Star, GitFork, Heart } from 'lucide-react';
 
 const languages = [
     { code: 'ar', name: 'عربي', label: 'Arabic', flag: '🇸🇾' },
@@ -65,10 +65,56 @@ export default function LanguagePicker({ onSelectLanguage }) {
                     </p>
                 </motion.div>
 
-                <div className="absolute bottom-8 left-8 md:bottom-12 md:left-16 text-sm text-gray-600 uppercase tracking-widest font-semibold flex items-center z-10">
-                    <span className="w-8 h-[1px] bg-accentOrg mr-4"></span>
-                    Willkommen in Deutschland
-                </div>
+                {/* Open Source GitHub Button */}
+                <motion.a
+                    href="https://github.com/azhan-ali/RefugeeReady"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.5 }}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="absolute bottom-8 left-8 md:bottom-10 md:left-16 z-10 group flex flex-col gap-2"
+                >
+                    {/* Main GitHub Button */}
+                    <div className="relative flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-accentOrg/50 rounded-xl px-4 py-3 transition-all duration-300 backdrop-blur-md overflow-hidden cursor-pointer">
+                        {/* Glow effect */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-accentOrg/0 to-accentOrg/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div className="absolute -inset-1 bg-accentOrg/20 blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-500 rounded-xl" />
+
+                        <div className="relative z-10 flex items-center gap-3">
+                            <div className="w-8 h-8 bg-white/10 group-hover:bg-accentOrg/20 rounded-lg flex items-center justify-center transition-all duration-300 border border-white/10 group-hover:border-accentOrg/40">
+                                <Github className="w-4 h-4 text-gray-300 group-hover:text-accentOrg transition-colors duration-300" />
+                            </div>
+                            <div className="flex flex-col">
+                                <span className="text-xs font-bold text-gray-200 group-hover:text-white transition-colors uppercase tracking-widest leading-none">Open Source</span>
+                                <span className="text-[10px] text-gray-500 group-hover:text-accentOrg/80 transition-colors leading-tight mt-0.5">azhan-ali/RefugeeReady</span>
+                            </div>
+                        </div>
+
+                        {/* MIT Badge */}
+                        <div className="relative z-10 ml-2 px-2 py-0.5 bg-accentOrg/20 border border-accentOrg/30 rounded-full">
+                            <span className="text-[9px] font-bold text-accentOrg uppercase tracking-wider">MIT</span>
+                        </div>
+                    </div>
+
+                    {/* Mini badges row */}
+                    <div className="flex items-center gap-2 pl-1">
+                        <div className="flex items-center gap-1 bg-white/5 border border-white/10 rounded-full px-2 py-0.5">
+                            <Star className="w-2.5 h-2.5 text-yellow-400" />
+                            <span className="text-[9px] text-gray-400 font-medium">Star us</span>
+                        </div>
+                        <div className="flex items-center gap-1 bg-white/5 border border-white/10 rounded-full px-2 py-0.5">
+                            <Heart className="w-2.5 h-2.5 text-red-400" />
+                            <span className="text-[9px] text-gray-400 font-medium">Built for refugees</span>
+                        </div>
+                        <div className="flex items-center gap-1 bg-white/5 border border-white/10 rounded-full px-2 py-0.5">
+                            <GitFork className="w-2.5 h-2.5 text-accentCyan" />
+                            <span className="text-[9px] text-gray-400 font-medium">Fork it</span>
+                        </div>
+                    </div>
+                </motion.a>
             </div>
 
             {/* RIGHT COLUMN */}
