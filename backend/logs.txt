@@ -1,3 +1,2 @@
-[dotenv@17.3.1] injecting env (5) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+[dotenv@17.3.1] injecting env (5) from .env -- tip: 🤖 agentic secret storage: https://dotenvx.com/as2
 Server is running on port 5000
-✅ Food listing added: Berliner Bakery at Alexanderplatz 1, Berlin

@@ -69,34 +69,46 @@ export default function MedicineTranslator({ lang, location }) {
         }
 
         try {
-            // STEP 3: API Explanation
+            // STEP 3: Call Groq AI directly from frontend (no backend needed)
             setStatus('explaining');
-            const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
-            const response = await fetch(`${baseUrl}/api/ai/explain-medicine`, {
+            const systemPrompt = `You are a medical assistant helping refugees understand German medicine labels. Analyze the medicine information and reply ONLY with a valid JSON array of medicine objects. Each object must have these exact fields: name (string), dose (string), frequency (string), warnings (string), treats (string). Reply in ${lang || 'English'}. Example: [{"name":"Ibuprofen","dose":"400mg","frequency":"3x daily after meals","warnings":"Do not take on empty stomach","treats":"Pain, fever, inflammation"}]`;
+
+            const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text: currentText, language: lang || 'English' })
+                headers: {
+                    'Authorization': `Bearer ${import.meta.env.VITE_GROQ_API_KEY}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: 'llama-3.3-70b-versatile',
+                    messages: [
+                        { role: 'system', content: systemPrompt },
+                        { role: 'user', content: currentText }
+                    ],
+                    temperature: 0.4
+                })
             });
 
-            const data = await response.json();
+            const groqData = await groqRes.json();
+            const aiText = groqData.choices?.[0]?.message?.content || '';
 
-            if (data.success && data.explanation) {
-                let parsedResult = data.explanation;
-                if (typeof parsedResult === 'string') {
-                    try { parsedResult = JSON.parse(parsedResult); } catch (e) { }
-                }
-
-                if (parsedResult.medicines && Array.isArray(parsedResult.medicines)) {
-                    setMedicines(parsedResult.medicines);
-                } else {
-                    setMedicines([{ name: 'Unknown', treats: JSON.stringify(parsedResult) }]); // Fallback structure mapping
-                }
-
-                setStatus('success');
-            } else {
-                throw new Error("API returned failure");
+            // Parse the AI JSON response
+            let parsed;
+            try {
+                let clean = aiText.trim();
+                if (clean.startsWith('```json')) clean = clean.replace(/^```json/, '');
+                if (clean.startsWith('```')) clean = clean.replace(/^```/, '');
+                if (clean.endsWith('```')) clean = clean.slice(0, -3).trim();
+                parsed = JSON.parse(clean);
+                if (!Array.isArray(parsed)) parsed = [parsed];
+            } catch (e) {
+                // Fallback: wrap raw response
+                parsed = [{ name: 'Medicine Info', dose: '', frequency: '', warnings: '', treats: aiText }];
             }
+
+            setMedicines(parsed);
+            setStatus('success');
         } catch (apiError) {
             console.error("AI API Error:", apiError);
             setStatus('error');

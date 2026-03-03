@@ -54,29 +54,57 @@ export default function DocumentVault({ lang }) {
         }
 
         try {
-            // STEP 3: API Explanation
+            // STEP 3: Call Groq AI directly from frontend (no backend needed)
             setStatus('explaining');
-            const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
-            const response = await fetch(`${baseUrl}/api/ai/explain-document`, {
+            const systemPrompt = `You are a helpful assistant for refugees in Germany. The user has photographed an official German document. Reply ONLY with a valid JSON object with these exact fields:
+{
+  "what_is_it": "Brief explanation of what this document is",
+  "what_to_do": "Clear steps on what the user needs to do next",
+  "deadline": "Any important deadline mentioned, or 'None mentioned'",
+  "warning": "Consequences if missed, or 'None'",
+  "address": "Important address or location, or 'None'"
+}
+Reply in ${lang || 'English'}. Do not include any other text, only the JSON.`;
+
+            const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text: extractedText, language: lang || 'English' })
+                headers: {
+                    'Authorization': `Bearer ${import.meta.env.VITE_GROQ_API_KEY}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: 'llama-3.3-70b-versatile',
+                    messages: [
+                        { role: 'system', content: systemPrompt },
+                        { role: 'user', content: extractedText }
+                    ],
+                    temperature: 0.4
+                })
             });
 
-            const data = await response.json();
+            const groqData = await groqRes.json();
+            const aiText = groqData.choices?.[0]?.message?.content || '';
 
-            if (data.success && data.explanation) {
-                // If the backend returns string instead of object natively, try parsing just in case
-                let finalResult = data.explanation;
-                if (typeof finalResult === 'string') {
-                    try { finalResult = JSON.parse(finalResult); } catch (e) { }
-                }
-                setResult(finalResult);
-                setStatus('success');
-            } else {
-                throw new Error("API returned failure");
+            let finalResult;
+            try {
+                let clean = aiText.trim();
+                if (clean.startsWith('```json')) clean = clean.replace(/^```json/, '');
+                if (clean.startsWith('```')) clean = clean.replace(/^```/, '');
+                if (clean.endsWith('```')) clean = clean.slice(0, -3).trim();
+                finalResult = JSON.parse(clean);
+            } catch (e) {
+                finalResult = {
+                    what_is_it: 'Document Analysis',
+                    what_to_do: aiText,
+                    deadline: '',
+                    warning: '',
+                    address: ''
+                };
             }
+
+            setResult(finalResult);
+            setStatus('success');
         } catch (apiError) {
             console.error("AI API Error:", apiError);
             setStatus('error');
