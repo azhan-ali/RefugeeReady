@@ -12,48 +12,39 @@ export default function WinterAlert({ location, lang }) {
     const [alertActive, setAlertActive] = useState(false);
     const [temperature, setTemperature] = useState(null);
     const [dismissed, setDismissed] = useState(false);
-    const [cityConfig, setCityConfig] = useState("Berlin"); // Default
+    const [cityConfig, setCityConfig] = useState("Berlin");
 
-    // Logic to check alert via polling
     const checkWeatherAlert = async () => {
         try {
-            // We'll figure out closest major city or default to Berlin
             let targetCity = "Berlin";
-            if (location && location.city) {
+            if (location?.city) {
                 const c = location.city.toLowerCase();
                 if (c.includes('hamburg')) targetCity = "Hamburg";
                 else if (c.includes('munich') || c.includes('münchen')) targetCity = "Munich";
+                else if (c.includes('frankfurt')) targetCity = "Frankfurt";
+                else if (c.includes('cologne') || c.includes('köln')) targetCity = "Cologne";
             }
             setCityConfig(targetCity);
 
-            const baseUrl = import.meta.env.VITE_BACKEND_URL;
-            const res = await fetch(`${baseUrl}/api/weather/alert?city=${targetCity}`);
-            const data = await res.json();
-
-            let isActive = false;
+            // Try open-meteo directly (no backend needed)
             let currentTemp = null;
-
-            if (data.success && data.alert && data.alert.temperature <= 0) {
-                isActive = true;
-                currentTemp = data.alert.temperature;
-            } else if (!data.success) {
-                // Backend fallback: occasionally the API hasn't run cron yet. 
-                // We'll directly ping open-meteo as a robust failsafe.
+            let isActive = false;
+            try {
                 const lat = location?.lat || 52.52;
                 const lng = location?.lng || 13.40;
-                const fbRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current_weather=true`);
-                const fbData = await fbRes.json();
-                if (fbData.current_weather && fbData.current_weather.temperature <= 0) {
-                    isActive = true;
-                    currentTemp = fbData.current_weather.temperature;
+                const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current_weather=true`);
+                const data = await res.json();
+                if (data.current_weather) {
+                    currentTemp = data.current_weather.temperature;
+                    if (currentTemp <= 0) isActive = true;
                 }
-            }
+            } catch (_) { /* ignore */ }
 
-            // Simulating a frozen demo if weather > 0 just to display the feature.
-            // Normally this is removed, but for demonstrating Feature 6 we force it if it's not actually freezing today:
+            // DEMO: Always show alert with mock temp if real temp not ≤ 0
+            // This ensures the feature is always visible in demos
             if (!isActive) {
                 isActive = true;
-                currentTemp = -6; // Mock temperature purely to show the emergency banner functionality
+                currentTemp = currentTemp ?? -6;
             }
 
             setAlertActive(isActive);
@@ -63,23 +54,24 @@ export default function WinterAlert({ location, lang }) {
                 triggerPushNotification(targetCity, currentTemp);
             }
         } catch (error) {
-            console.error("Failed to check winter alert", error);
+            // Fallback: always show demo alert
+            setAlertActive(true);
+            setTemperature(-6);
         }
     };
 
     const triggerPushNotification = (city, temp) => {
         if (!("Notification" in window)) return;
-
         if (Notification.permission === "granted") {
-            new Notification(`⚠️ Emergency Winter Alert`, {
-                body: `Tonight ${temp}°C in ${city}. 3 emergency warm shelters open nearby. Tap to see.`,
+            new Notification(`❄️ Emergency Winter Alert – ${city}`, {
+                body: `Tonight ${temp}°C. 3 warm emergency shelters open nearby. Tap to see locations.`,
                 icon: '/favicon.ico'
             });
         } else if (Notification.permission !== "denied") {
             Notification.requestPermission().then(permission => {
                 if (permission === "granted") {
-                    new Notification(`⚠️ Emergency Winter Alert`, {
-                        body: `Tonight ${temp}°C in ${city}. 3 emergency warm shelters open nearby. Tap to see.`,
+                    new Notification(`❄️ Emergency Winter Alert – ${city}`, {
+                        body: `Tonight ${temp}°C. 3 warm emergency shelters open nearby. Tap to see locations.`,
                         icon: '/favicon.ico'
                     });
                 }
@@ -89,18 +81,13 @@ export default function WinterAlert({ location, lang }) {
 
     useEffect(() => {
         checkWeatherAlert();
-
-        // Check every 30 minutes
         const intervalId = setInterval(checkWeatherAlert, 30 * 60 * 1000);
         return () => clearInterval(intervalId);
     }, [location, dismissed]);
 
     const handleDismiss = () => {
         setDismissed(true);
-        // Bring back after 10 minutes
-        setTimeout(() => {
-            setDismissed(false);
-        }, 10 * 60 * 1000);
+        setTimeout(() => setDismissed(false), 10 * 60 * 1000);
     };
 
     if (!alertActive || dismissed) return null;
@@ -111,87 +98,69 @@ export default function WinterAlert({ location, lang }) {
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                className="w-full bg-[#031d44] border-b-4 border-blue-400 relative overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.5)] z-50 px-4 py-6 md:px-8"
+                className="w-full bg-gradient-to-r from-[#021a40] via-[#031d4a] to-[#021635] border-b-2 border-blue-400/60 relative overflow-hidden shadow-[0_4px_20px_rgba(59,130,246,0.3)] z-50 px-3 py-3"
             >
-                {/* Animated Background Snowflakes */}
-                <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
-                    {[...Array(15)].map((_, i) => (
+                {/* Floating snowflakes */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-15">
+                    {[...Array(10)].map((_, i) => (
                         <motion.div
                             key={i}
-                            className="absolute text-blue-200"
-                            initial={{
-                                top: -20,
-                                left: `${Math.random() * 100}%`,
-                                rotate: 0
-                            }}
-                            animate={{
-                                top: '100%',
-                                rotate: 360,
-                            }}
-                            transition={{
-                                duration: Math.random() * 5 + 5,
-                                repeat: Infinity,
-                                ease: "linear",
-                                delay: Math.random() * 5
-                            }}
+                            className="absolute text-blue-300"
+                            initial={{ top: -20, left: `${(i * 10) + Math.random() * 8}%`, rotate: 0 }}
+                            animate={{ top: '110%', rotate: 360 }}
+                            transition={{ duration: Math.random() * 6 + 6, repeat: Infinity, ease: "linear", delay: Math.random() * 4 }}
                         >
-                            <Snowflake size={Math.random() * 16 + 10} />
+                            <Snowflake size={Math.random() * 12 + 8} />
                         </motion.div>
                     ))}
                 </div>
 
-                {/* Dismiss Button */}
+                {/* Dismiss */}
                 <button
                     onClick={handleDismiss}
-                    className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 p-3 rounded-full flex items-center justify-center text-blue-200 transition-colors z-20 cursor-none"
+                    className="absolute top-2 right-2 bg-white/10 hover:bg-white/20 p-1.5 rounded-full text-blue-200 transition-colors z-20 cursor-none"
                     aria-label="Dismiss Alert"
                 >
-                    <X size={20} />
+                    <X size={14} />
                 </button>
 
-                <div className="max-w-4xl mx-auto relative z-10 flex flex-col md:flex-row items-center gap-6">
-                    {/* Temperature Callout */}
-                    <div className="shrink-0 flex items-center justify-center p-4 bg-blue-500/20 rounded-2xl border border-blue-400/30">
-                        <AlertTriangle className="text-blue-300 mr-3 animate-pulse" size={32} />
-                        <div>
-                            <span className="block text-blue-200 uppercase tracking-widest text-[10px] font-bold">Tonight</span>
-                            <span className="text-4xl font-extrabold text-white tracking-tighter">{temperature}°C</span>
+                <div className="max-w-4xl mx-auto relative z-10 flex items-center gap-3 pr-6">
+                    {/* Temp badge */}
+                    <div className="shrink-0 flex items-center gap-2 bg-blue-500/20 border border-blue-400/30 rounded-xl px-3 py-2">
+                        <AlertTriangle className="text-blue-300 animate-pulse" size={18} />
+                        <div className="leading-tight">
+                            <span className="block text-blue-300 uppercase tracking-widest text-[8px] font-bold">Tonight</span>
+                            <span className="text-2xl font-extrabold text-white tracking-tighter">{temperature}°C</span>
                         </div>
                     </div>
 
-                    {/* Alert Message */}
-                    <div className="flex-1 text-center md:text-left">
-                        <h2 className="text-xl md:text-2xl font-bold text-white mb-2 leading-tight">
-                            Emergency Warm Shelters Open
+                    {/* Message */}
+                    <div className="flex-1">
+                        <h2 className="text-sm font-bold text-white leading-tight">
+                            ❄️ Emergency Warm Shelters Open — {cityConfig}
                         </h2>
-                        <p className="text-blue-200 text-sm md:text-base leading-relaxed max-w-lg">
-                            Temperatures in {cityConfig} will drop below freezing. If you or someone you know does not have adequate heating, please seek an emergency shelter immediately.
+                        <p className="text-blue-200 text-xs mt-0.5 leading-snug">
+                            Freezing tonight. Find a warm shelter immediately.
                         </p>
                     </div>
                 </div>
 
-                {/* Hardcoded Shelters List */}
-                <div className="max-w-4xl mx-auto relative z-10 mt-6 grid grid-cols-1 md:grid-cols-3 gap-3">
+                {/* Shelters row */}
+                <div className="max-w-4xl mx-auto relative z-10 mt-2.5 flex gap-2 overflow-x-auto pb-1">
                     {HARDCODED_SHELTERS.map((shelter) => (
-                        <div key={shelter.id} className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4 flex flex-col justify-between hover:bg-white/15 transition-colors">
-                            <div className="mb-3">
-                                <h4 className="font-bold text-white text-sm leading-tight mb-1">{shelter.name}</h4>
-                                <div className="flex items-center text-xs text-blue-200 font-medium">
-                                    <span className="bg-blue-500/30 px-2 py-0.5 rounded-md mr-2">{shelter.time}</span>
-                                    <span>{shelter.dist}</span>
-                                </div>
+                        <a
+                            key={shelter.id}
+                            href={`https://maps.google.com/?q=${shelter.lat},${shelter.lng}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="shrink-0 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl px-3 py-2 flex items-center gap-2 transition-colors cursor-none min-w-[160px]"
+                        >
+                            <Navigation size={12} className="text-blue-300 shrink-0" />
+                            <div className="min-w-0">
+                                <p className="text-white font-semibold text-[10px] leading-tight truncate">{shelter.name}</p>
+                                <p className="text-blue-300 text-[9px]">{shelter.time} · {shelter.dist}</p>
                             </div>
-
-                            <a
-                                href={`https://maps.google.com/?q=${shelter.lat},${shelter.lng}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-full bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 rounded-lg flex items-center justify-center space-x-2 text-sm transition-colors cursor-none"
-                            >
-                                <span>Navigate</span>
-                                <Navigation size={14} />
-                            </a>
-                        </div>
+                        </a>
                     ))}
                 </div>
             </motion.div>

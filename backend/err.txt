@@ -1,0 +1,1 @@
+Weather cron job failed with error: Request failed with status code 504
