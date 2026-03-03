@@ -101,7 +101,7 @@ out body;`;
         fetchSpots();
     }, [location]);
 
-    <div className="p-4 md:p-8 space-y-6 relative min-h-screen">
+    <div className="p-3 md:p-6 space-y-4 relative min-h-screen">
         {/* Premium Background Elements */}
         <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-[#030407] to-[#030407] pointer-events-none z-0"></div>
 
@@ -115,7 +115,7 @@ out body;`;
     </div>
 
     return (
-        <div className="p-4 md:p-8 space-y-6 relative min-h-screen flex flex-col">
+        <div className="p-3 md:p-6 space-y-4 relative min-h-screen flex flex-col">
             {/* Premium Background */}
             <div className="fixed inset-0 pointer-events-none z-0">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#010517] via-[#030812] to-[#030407]" />
@@ -126,15 +126,15 @@ out body;`;
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.65)_100%)]" />
             </div>
 
-            <div className="relative z-10 flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-4 mb-2 shrink-0">
-                <div className="bg-gradient-to-br from-blue-500/20 to-indigo-500/20 p-4 rounded-2xl border border-blue-500/30 shadow-[0_0_30px_rgba(59,130,246,0.2)] flex-shrink-0 w-fit">
-                    <Wifi className="text-blue-400 w-8 h-8 md:w-10 md:h-10" />
+            <div className="relative z-10 flex items-center flex-row space-x-3 mb-4">
+                <div className="bg-gradient-to-br from-blue-500/20 to-indigo-500/20 p-2.5 rounded-xl border border-blue-500/30 shadow-[0_0_30px_rgba(59,130,246,0.2)] shrink-0">
+                    <Wifi className="text-blue-400 w-5 h-5" />
                 </div>
                 <div>
-                    <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                    <h2 className="text-lg md:text-xl font-bold text-white tracking-tight">
                         Free <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">WiFi Spots</span>
                     </h2>
-                    <p className="text-gray-400 leading-relaxed text-sm md:text-lg mt-2 font-light">
+                    <p className="text-gray-400 text-xs mt-0.5">
                         Find free public internet connections nearby to contact your family.
                     </p>
                 </div>
@@ -229,3 +229,5 @@ out body;`;
         </div>
     );
 }
+
+

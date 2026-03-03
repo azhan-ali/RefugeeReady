@@ -185,18 +185,18 @@ export default function RefugeeDashboard({ onBack }) {
                 )}
 
                 {/* I Just Arrived Button */}
-                <div className="px-4 py-4">
+                <div className="px-3 py-2">
                     <button
                         onClick={() => {
                             setSurvivalModeActive(!survivalModeActive);
                             setActiveTab('survival');
                         }}
-                        className={`cursor-none w-full py-5 rounded-2xl font-bold text-lg flex items-center justify-center space-x-3 transition-all duration-300 ${survivalModeActive
-                            ? 'bg-red-500 text-white shadow-[0_0_30px_rgba(239,68,68,0.3)] border border-red-400'
-                            : 'bg-white/5 text-gray-200 border border-white/10 hover:bg-white/10'
+                        className={`cursor-none w-full py-3 rounded-xl font-bold text-sm flex items-center justify-center space-x-2 transition-all duration-300 ${survivalModeActive
+                            ? 'bg-red-500 text-white shadow-[0_0_20px_rgba(239,68,68,0.3)] border border-red-400'
+                            : 'bg-white/5 text-gray-300 border border-white/10 hover:bg-white/10'
                             }`}
                     >
-                        <AlertCircle size={24} className={survivalModeActive ? 'animate-pulse' : ''} />
+                        <AlertCircle size={18} className={survivalModeActive ? 'animate-pulse' : ''} />
                         <span>{t('app.justArrivedToday', 'I just arrived today')}</span>
                     </button>
                 </div>
@@ -215,7 +215,7 @@ export default function RefugeeDashboard({ onBack }) {
             </main>
 
             {/* Fixed Bottom Navigation Bar */}
-            <nav className="fixed bottom-0 w-full bg-[#0a0b10] border-t border-white/10 z-50 px-2 pb-safe pt-2">
+            <nav className="fixed bottom-0 w-full bg-[#0a0b10]/95 backdrop-blur-xl border-t border-white/10 z-50 px-1 pb-safe pt-1">
                 <ul className="flex justify-between max-w-5xl mx-auto">
                     {tabs.map((tab) => {
                         const isActive = activeTab === tab.id;
@@ -223,18 +223,18 @@ export default function RefugeeDashboard({ onBack }) {
                             <li key={tab.id} className="flex-1">
                                 <button
                                     onClick={() => setActiveTab(tab.id)}
-                                    className={`cursor-none w-full flex flex-col items-center justify-center py-2 space-y-1 transition-all group relative`}
+                                    className={`cursor-none w-full flex flex-col items-center justify-center py-2 space-y-0.5 transition-all group relative`}
                                 >
                                     <div className={`
-                    absolute top-[-10px] w-8 h-1 rounded-b-full transition-all duration-300
+                    absolute top-[-6px] w-6 h-0.5 rounded-b-full transition-all duration-300
                     ${isActive ? 'bg-accentOrg scale-100' : 'bg-transparent scale-0'}
                   `} />
 
-                                    <div className={`p-1.5 rounded-xl transition-all duration-300 ${isActive ? 'text-accentOrg' : 'text-gray-500 group-hover:text-gray-300 bg-transparent'}`}>
-                                        {tab.icon}
+                                    <div className={`p-1 rounded-lg transition-all duration-300 ${isActive ? 'text-accentOrg' : 'text-gray-500 group-hover:text-gray-300 bg-transparent'}`}>
+                                        {React.cloneElement(tab.icon, { size: 18 })}
                                     </div>
 
-                                    <span className={`text-[10px] font-semibold tracking-wider uppercase transition-colors duration-300 ${isActive ? 'text-accentOrg' : 'text-gray-500 group-hover:text-gray-300'}`}>
+                                    <span className={`text-[9px] font-semibold tracking-wide uppercase transition-colors duration-300 ${isActive ? 'text-accentOrg' : 'text-gray-600 group-hover:text-gray-400'}`}>
                                         {tab.label}
                                     </span>
                                 </button>

@@ -175,3 +175,4 @@ export default function SurvivalMode({ location, lang, setActiveTab }) {
         </div>
     );
 }
+

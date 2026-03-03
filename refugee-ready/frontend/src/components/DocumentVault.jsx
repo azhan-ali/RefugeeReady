@@ -120,7 +120,7 @@ Reply in ${lang || 'English'}. Do not include any other text, only the JSON.`;
     };
 
     return (
-        <div className="p-4 md:p-8 space-y-6 relative min-h-screen">
+        <div className="p-3 md:p-6 space-y-4 relative min-h-screen">
             {/* Premium Background */}
             <div className="fixed inset-0 pointer-events-none z-0">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#080210] via-[#070312] to-[#030407]" />
@@ -131,15 +131,15 @@ Reply in ${lang || 'English'}. Do not include any other text, only the JSON.`;
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.65)_100%)]" />
             </div>
 
-            <div className="relative z-10 flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-4 mb-6">
-                <div className="bg-gradient-to-br from-purple-500/20 to-blue-500/20 p-4 rounded-2xl border border-purple-500/30 shadow-[0_0_30px_rgba(168,85,247,0.2)] flex-shrink-0 w-fit">
-                    <FileScan className="text-purple-400 w-8 h-8 md:w-10 md:h-10" />
+            <div className="relative z-10 flex items-center flex-row space-x-3 mb-5">
+                <div className="bg-gradient-to-br from-purple-500/20 to-blue-500/20 p-2.5 rounded-xl border border-purple-500/30 shadow-[0_0_30px_rgba(168,85,247,0.2)] shrink-0">
+                    <FileScan className="text-purple-400 w-5 h-5" />
                 </div>
                 <div>
-                    <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                    <h2 className="text-lg md:text-xl font-bold text-white tracking-tight">
                         Document <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">Vault</span>
                     </h2>
-                    <p className="text-gray-400 leading-relaxed text-sm md:text-lg mt-2 max-w-xl font-light">
+                    <p className="text-gray-400 text-xs mt-0.5">
                         Take a photo of any official German letter. Our AI will securely translate and explain it simply in your language.
                     </p>
                 </div>
@@ -377,3 +377,5 @@ Reply in ${lang || 'English'}. Do not include any other text, only the JSON.`;
         </div>
     );
 }
+
+

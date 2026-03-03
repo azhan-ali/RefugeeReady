@@ -81,7 +81,7 @@ export default function EmptyTonight({ location, lang }) {
     };
 
     return (
-        <div className="p-4 md:p-8 space-y-6 relative min-h-screen">
+        <div className="p-3 md:p-6 space-y-4 relative min-h-screen">
             {/* Premium Background */}
             <div className="fixed inset-0 pointer-events-none z-0">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#01100d] via-[#020f0f] to-[#030407]" />
@@ -92,15 +92,15 @@ export default function EmptyTonight({ location, lang }) {
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.65)_100%)]" />
             </div>
 
-            <div className="relative z-10 flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-4 mb-6">
-                <div className="bg-gradient-to-br from-teal-500/20 to-cyan-500/20 p-4 rounded-2xl border border-teal-500/30 shadow-[0_0_30px_rgba(20,184,166,0.2)] flex-shrink-0 w-fit">
-                    <Home className="text-teal-400 w-8 h-8 md:w-10 md:h-10" />
+            <div className="relative z-10 flex items-center flex-row space-x-3 mb-5">
+                <div className="bg-gradient-to-br from-teal-500/20 to-cyan-500/20 p-2.5 rounded-xl border border-teal-500/30 shadow-[0_0_30px_rgba(20,184,166,0.2)] shrink-0">
+                    <Home className="text-teal-400 w-5 h-5" />
                 </div>
                 <div>
-                    <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                    <h2 className="text-lg md:text-xl font-bold text-white tracking-tight">
                         Empty <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-400">Tonight</span>
                     </h2>
-                    <p className="text-gray-400 leading-relaxed text-sm md:text-lg mt-2 max-w-xl font-light">
+                    <p className="text-gray-400 text-xs mt-0.5">
                         Real-time available emergency beds. Updated instantly by verified local hosts and shelters.
                     </p>
                 </div>
@@ -244,3 +244,5 @@ export default function EmptyTonight({ location, lang }) {
         </div>
     );
 }
+
+
