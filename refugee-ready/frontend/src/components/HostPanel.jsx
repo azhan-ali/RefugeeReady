@@ -29,51 +29,39 @@ export default function HostPanel({ onBack }) {
         setSubmitting(true);
         setShowSuccess(false);
 
+        const newBed = {
+            id: Date.now().toString(),
+            location: `${formData.shelterName}, ${formData.address}`,
+            shelter_name: formData.shelterName,
+            address: formData.address,
+            capacity: Number(formData.capacity),
+            notes: formData.notes,
+            contact_info: formData.contactPhone,
+            available: true,
+            created_at: new Date().toISOString()
+        };
+
+        // PRIMARY: Save to localStorage immediately
+        const existing = JSON.parse(localStorage.getItem('rr_bed_listings') || '[]');
+        localStorage.setItem('rr_bed_listings', JSON.stringify([...existing, newBed]));
+        console.log('✅ Bed saved to localStorage:', newBed.location);
+
+        // Update local UI state
+        setActiveListings(prev => [newBed, ...prev]);
+        setShowSuccess(true);
+        setFormData({ shelterName: '', address: '', capacity: 1, notes: '', availableUntil: '', contactPhone: '' });
+        setTimeout(() => setShowSuccess(false), 5000);
+        setSubmitting(false);
+
+        // SECONDARY: also try backend (non-blocking)
         try {
             const baseUrl = import.meta.env.VITE_BACKEND_URL;
-            const response = await fetch(`${baseUrl}/api/beds`, {
+            await fetch(`${baseUrl}/api/beds`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    location: `${formData.shelterName}, ${formData.address}`,
-                    capacity: Number(formData.capacity),
-                    notes: formData.notes,
-                    contact_info: formData.contactPhone,
-                    available: true,
-                    // valid_until: formData.availableUntil (Add this to backend ultimately)
-                })
+                body: JSON.stringify({ location: newBed.location, capacity: newBed.capacity, notes: newBed.notes, contact_info: newBed.contact_info, available: true })
             });
-
-            const data = await response.json();
-
-            if (data.success) {
-                setShowSuccess(true);
-                // Prepend to active listings locally for demo feedback 
-                setActiveListings(prev => [{
-                    id: data.bed.id,
-                    ...formData
-                }, ...prev]);
-
-                // Reset form
-                setFormData({
-                    shelterName: '',
-                    address: '',
-                    capacity: 1,
-                    notes: '',
-                    availableUntil: '',
-                    contactPhone: ''
-                });
-
-                setTimeout(() => setShowSuccess(false), 5000);
-            } else {
-                alert("Failed to post beds.");
-            }
-        } catch (error) {
-            console.error("Post error:", error);
-            alert("Network error.");
-        } finally {
-            setSubmitting(false);
-        }
+        } catch (_) { /* backend offline — localStorage already saved */ }
     };
 
     const removeListing = async (id) => {

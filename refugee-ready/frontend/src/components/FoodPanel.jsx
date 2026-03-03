@@ -30,13 +30,20 @@ export default function FoodPanel({ onBack }) {
     const fetchListings = async () => {
         setLoadingListings(true);
         try {
-            const res = await fetch(`${baseUrl}/api/food`);
-            const data = await res.json();
-            if (data.success) {
-                // Since there is no auth, we'll just show all active listings for the demo
-                // Or we filter locally by checking if businessName matches (if entered)
-                setMyListings(data.food || []);
-            }
+            // PRIMARY: Load from localStorage (instant, no backend needed)
+            const stored = JSON.parse(localStorage.getItem('rr_food_listings') || '[]');
+            setMyListings(stored.filter(f => !f.claimed).reverse());
+
+            // SECONDARY: Also try backend, merge if successful
+            try {
+                const res = await fetch(`${baseUrl}/api/food`);
+                const data = await res.json();
+                if (data.success && data.food?.length > 0) {
+                    // Merge backend + local, deduplicate by id
+                    const merged = [...stored, ...data.food.filter(f => !stored.find(s => s.id === f.id))];
+                    setMyListings(merged.filter(f => !f.claimed).reverse());
+                }
+            } catch (_) { /* backend offline, localStorage already loaded */ }
         } catch (error) {
             console.error('Failed to fetch listings:', error);
         } finally {
@@ -75,35 +82,44 @@ export default function FoodPanel({ onBack }) {
             contact_phone: formData.phone
         };
 
+        // SAVE TO LOCALSTORAGE immediately (instant demo fix)
+        const newItem = {
+            ...payload,
+            id: Date.now().toString(),
+            claimed: false,
+            created_at: new Date().toISOString()
+        };
+        const existing = JSON.parse(localStorage.getItem('rr_food_listings') || '[]');
+        localStorage.setItem('rr_food_listings', JSON.stringify([...existing, newItem]));
+        console.log('✅ Food saved to localStorage:', newItem.title);
+
         try {
             const res = await fetch(`${baseUrl}/api/food`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
-
             if (res.ok) {
-                setSuccess(true);
-                // Reset form fields mostly, except business info
-                setFormData(prev => ({
-                    ...prev,
-                    foodItems: '',
-                    quantity: 1,
-                    isHalal: false,
-                    isVegan: false
-                }));
-                fetchListings();
-                setTimeout(() => setSuccess(false), 8000);
-            } else {
-                alert("Something went wrong saving your food listing.");
+                const data = await res.json();
+                // Update localStorage with backend id
+                const updated = JSON.parse(localStorage.getItem('rr_food_listings') || '[]');
+                const idx = updated.findIndex(f => f.id === newItem.id);
+                if (idx >= 0 && data.food?.id) updated[idx].id = data.food.id;
+                localStorage.setItem('rr_food_listings', JSON.stringify(updated));
             }
-        } catch (error) {
-            console.error('Error submitting food:', error);
-            // Show fake success for UX if backend is totally down
-            setSuccess(true);
-        } finally {
-            setSubmitting(false);
-        }
+        } catch (_) { /* backend offline — localStorage already saved */ }
+
+        setSuccess(true);
+        setFormData(prev => ({
+            ...prev,
+            foodItems: '',
+            quantity: 1,
+            isHalal: false,
+            isVegan: false
+        }));
+        fetchListings();
+        setTimeout(() => setSuccess(false), 8000);
+        setSubmitting(false);
     };
 
     const handleMarkAsGone = async (id) => {

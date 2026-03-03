@@ -27,37 +27,38 @@ export default function FoodAlert({ location, lang }) {
         const fetchFood = async () => {
             try {
                 setLoading(true);
-                const baseUrl = import.meta.env.VITE_BACKEND_URL;
-                const response = await fetch(`${baseUrl}/api/food`);
-                const data = await response.json();
 
-                if (data.success) {
-                    // Calculate distance for each item
-                    const itemsWithDistance = data.food.map(item => {
-                        let dist = Infinity;
-                        if (location?.lat && location?.lng && item.lat && item.lng) {
-                            dist = getDistance(location.lat, location.lng, item.lat, item.lng);
-                        } else if (item.distance !== undefined) {
-                            dist = item.distance; // fallback if backend provides it
-                        }
-                        return { ...item, calculatedDistance: dist };
-                    });
+                // PRIMARY: Read from localStorage immediately (no backend needed)
+                const stored = JSON.parse(localStorage.getItem('rr_food_listings') || '[]');
+                const activeStored = stored.filter(f => !f.claimed);
 
-                    // Sort by closest first
-                    itemsWithDistance.sort((a, b) => a.calculatedDistance - b.calculatedDistance);
-                    setListings(itemsWithDistance);
-                } else {
-                    setError('Failed to load food listings.');
-                }
+                // SECONDARY: try backend and merge
+                try {
+                    const baseUrl = import.meta.env.VITE_BACKEND_URL;
+                    const response = await fetch(`${baseUrl}/api/food`);
+                    const data = await response.json();
+
+                    if (data.success && data.food?.length > 0) {
+                        const merged = [...activeStored, ...data.food.filter(f => !activeStored.find(s => s.id === f.id))];
+                        const withDist = merged.map(item => ({ ...item, calculatedDistance: Infinity }));
+                        setListings(withDist);
+                        return;
+                    }
+                } catch (_) { /* backend offline */ }
+
+                setListings(activeStored.map(item => ({ ...item, calculatedDistance: Infinity })));
             } catch (err) {
                 console.error("Food fetch error:", err);
-                setError('Network error while loading food listings.');
+                setListings([]);
             } finally {
                 setLoading(false);
             }
         };
 
         fetchFood();
+        // Refresh every 5 seconds to pick up new listings
+        const interval = setInterval(fetchFood, 5000);
+        return () => clearInterval(interval);
     }, [location]);
 
     const handleClaim = async (id) => {

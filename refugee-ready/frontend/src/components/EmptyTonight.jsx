@@ -45,48 +45,33 @@ export default function EmptyTonight({ location, lang }) {
 
     useEffect(() => {
         fetchBeds();
-
-        // Real-time subscription to 'beds' table
-        const subscription = supabase
-            .channel('public:beds')
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'beds' }, (payload) => {
-                // Real-time update received
-                setFlashNewData(true);
-                fetchBeds();
-                setTimeout(() => setFlashNewData(false), 2000); // Remove flash after 2s
-            })
-            .subscribe();
-
-        // Update "Last updated" text 
-        const intervalId = setInterval(() => {
-            setLastUpdated((prev) => {
-                if (prev === 'Just now') return '1 minute ago';
-                if (prev.includes('minute')) {
-                    const mins = parseInt(prev) || 1;
-                    return `${mins + 1} minutes ago`;
-                }
-                return prev;
-            });
-        }, 60000);
-
-        return () => {
-            supabase.removeChannel(subscription);
-            clearInterval(intervalId);
-        };
+        // Poll every 5s to pick up new beds (no Supabase realtime needed)
+        const intervalId = setInterval(fetchBeds, 5000);
+        return () => clearInterval(intervalId);
     }, []);
 
     const fetchBeds = async () => {
         try {
             setLoading(true);
-            const { data, error } = await supabase
-                .from('beds')
-                .select('*')
-                .eq('available', true)
-                // In production: valid_until > now() check would be added here
-                .order('created_at', { ascending: false });
 
-            if (error) throw error;
-            setBeds(data || []);
+            // PRIMARY: localStorage (instant, no backend needed)
+            const stored = JSON.parse(localStorage.getItem('rr_bed_listings') || '[]');
+            const activeBeds = stored.filter(b => b.available !== false);
+
+            // SECONDARY: try backend and merge
+            try {
+                const baseUrl = import.meta.env.VITE_BACKEND_URL;
+                const res = await fetch(`${baseUrl}/api/beds`);
+                const data = await res.json();
+                if (data.success && data.beds?.length > 0) {
+                    const merged = [...activeBeds, ...data.beds.filter(b => !activeBeds.find(s => s.id === b.id))];
+                    setBeds(merged);
+                    setLastUpdated('Just now');
+                    return;
+                }
+            } catch (_) { /* backend offline */ }
+
+            setBeds(activeBeds);
             setLastUpdated('Just now');
         } catch (err) {
             console.error('Error fetching beds:', err);
